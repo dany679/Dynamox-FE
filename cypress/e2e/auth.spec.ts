@@ -1,34 +1,53 @@
-// /// <reference types="cypress" />
+describe("login auth", () => {
+  beforeEach(() => {
+    cy.clearAllCookies();
+    cy.clearAllSessionStorage();
+    cy.clearAllLocalStorage();
+    cy.visit("/login");
+  });
+  it("should redirect unauthenticated user to sign-in page", () => {
+    cy.clickLink("Registre-se");
 
-// {
-//   "baseUrl": "https://ui.cogmento.com/",
-//   "email": "XXXXXXXX@gmail.com",
-//   "password": "XXXXXXX"
-// }
-
-// //commands.js
-// Cypress.Commands.add('loadEnvironmentConfig', (env) => {
-//     return cy.readFile(`cypress.${env}.json`).then((config) => {
-//         Cypress.config('env', config);
-//     });
-// });
-
-// describe('Environment-Specific Test', () => {
-//     beforeEach(() => {
-//         // Load QA environment config
-//         cy.loadEnvironmentConfig('qa');
-//     });
-
-//     it('Visits the specified environment', () => {
-//         const baseUrl = Cypress.config('env').baseUrl; // Access environment-specific data
-
-//         cy.visit(baseUrl); // Visit the specified URL
-//         cy.title().should('have', 'Login ')
-//         cy.get('input[name = "email"]').type(Cypress.config('env').email); // Use email id
-//         cy.get('input[name="password"]').type(Cypress.config('env').password); // Use password
-//         cy.get('input[type="submit"]').click()
-//         cy.title().should('have', 'Maquinas')
-
-//         // Perform other test actions using environment-specific data
-//     });
-// });
+    console.log(Cypress.env("webTitle"), "AKO");
+    cy.get("title").should("include.text", "registrar | " + Cypress.env("webTitle"));
+  });
+  it("should redirect unauthenticated user to login page", () => {
+    cy.url().should("eq", Cypress.config().baseUrl + "/login");
+    cy.get("h1").should("contain.text", "Login");
+    cy.visit("/");
+    cy.get("h1").should("contain.text", "Login");
+    cy.get("title").should("include.text", "login | " + Cypress.env("webTitle"));
+  });
+  it("should show erros if the fields is black or incorrect", () => {
+    cy.get('input[name = "email"]').type("user check now"); // Use email id
+    cy.get('input[name="password"]');
+    cy.get('button[type="submit"]').click();
+    cy.get("form").submit();
+    cy.get("#email-helper-id").should("be.visible");
+    cy.get("#password-helper-id").should("be.visible");
+    cy.get('input[name = "password"]').type("user check now");
+    cy.get("#password-helper-id").should("not.exist");
+  });
+  it("should login with user data", () => {
+    cy.clearAllCookies();
+    cy.clearAllSessionStorage();
+    cy.clearAllLocalStorage();
+    const email = Cypress.env("email");
+    const password = Cypress.env("password");
+    expect(email, "username was set").to.be.a("string").and.not.be.empty;
+    expect(password, "username was set").to.be.a("string").and.not.be.empty;
+    cy.visit("/login"); // Visit the specified URL
+    cy.get("h1").should("contain.text", "Login");
+    cy.get("form").within(() => {
+      cy.get('input[name = "email"]').type(email); // Use email id
+      cy.get('input[name="password"]').type(password); // Use password
+      cy.get('button[type="submit"]').click();
+    });
+  });
+  it.only("should be able to logout", () => {
+    cy.login();
+    cy.visit("/");
+    cy.getDataTest("logout-id").click();
+    // cy.get("title").should("include.text", "login | " + Cypress.env("webTitle"));
+  });
+});

@@ -87,12 +87,7 @@ export default function PersistentDrawerLeft() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1 }}
-            className="truncate"
-          >
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} className="truncate">
             {user?.name ? "Bem vindo " : ""}
             {user?.name || ""}
           </Typography>
@@ -104,11 +99,7 @@ export default function PersistentDrawerLeft() {
             </Link>
           ) : (
             <>
-              <Button
-                color="info"
-                variant="contained"
-                onClick={() => signOut()}
-              >
+              <Button color="info" variant="contained" onClick={() => signOut()} data-test="logout-id">
                 Sair
               </Button>
             </>
@@ -136,20 +127,11 @@ export default function PersistentDrawerLeft() {
               position: "relative",
             }}
           >
-            <Image
-              alt="Mountains"
-              src={"/logoD.png"}
-              layout="fill"
-              objectFit="contain"
-            />
+            <Image alt="Mountains" src={"/logoD.png"} layout="fill" objectFit="contain" />
           </Stack>
 
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
+            {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
@@ -167,9 +149,7 @@ export default function PersistentDrawerLeft() {
               key={link.name}
               className={cn(
                 "no-underline  text-gray-700",
-                pathName === link.href
-                  ? "text-gray-700 hover:bg-white/10 "
-                  : "text-zinc-500"
+                pathName === link.href ? "text-gray-700 hover:bg-white/10 " : "text-zinc-500"
               )}
             >
               <ListItem disablePadding>
@@ -177,9 +157,7 @@ export default function PersistentDrawerLeft() {
                   <ListItemIcon
                     className={cn(
                       "no-underline  text-gray-700",
-                      pathName === link.href
-                        ? "text-gray-700 hover:bg-white/10 "
-                        : "text-zinc-500"
+                      pathName === link.href ? "text-gray-700 hover:bg-white/10 " : "text-zinc-500"
                     )}
                   >
                     {link.icon}

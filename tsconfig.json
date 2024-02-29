@@ -13,24 +13,28 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+
     "plugins": [
       {
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     }
   },
   "types": ["cypress"],
   "include": [
+    "**/*.*",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
     "cypress.config.ts",
     "cypress",
-    "node_modules"
+    "node_modules",
+    "./node_modules/cypress"
   ],
   "exclude": ["node_modules"]
 }

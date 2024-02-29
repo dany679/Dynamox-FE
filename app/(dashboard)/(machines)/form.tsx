@@ -27,8 +27,7 @@ const FormProducts = () => {
   const [update, setUpdate] = useState<false | number>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [data, setData] = useState();
-  const [backPagination, setBackPagination] =
-    useState<IPagination>(initialPagination);
+  const [backPagination, setBackPagination] = useState<IPagination>(initialPagination);
   const axiosAuth = useAxiosAuth();
 
   const router = useRouter();
@@ -53,9 +52,7 @@ const FormProducts = () => {
   const getData = useCallback(async () => {
     setIsLoading(() => true);
     try {
-      const { data } = await axiosAuth.get(
-        `/machines?page=${pagination.page}&limit=${pagination.limit}`
-      );
+      const { data } = await axiosAuth.get(`/machines?page=${pagination.page}&limit=${pagination.limit}`);
       setData(data.machines);
       setBackPagination(data.pagination);
     } catch (error) {
@@ -96,8 +93,9 @@ const FormProducts = () => {
   }, [getData]);
 
   const onSubmitting = async (values: z.infer<typeof formSchema>) => {
+    const update = values.id;
+    const toastId = toast.loading(update ? "Atualizando maquina" : "Criando maquina");
     try {
-      const update = values.id;
       const req = update
         ? await axiosAuth.put(`${BASE_HTTP}/machines/${values.id}`, {
             ...values,
@@ -106,13 +104,17 @@ const FormProducts = () => {
             ...values,
           });
       if (update) removeUUI();
-      toast.success(
-        `maquina ${update ? "atualizado" : "cadastrado"} com sucesso`
-      );
+      toast.success(`maquina ${update ? "atualizado" : "cadastrado"} com sucesso`, {
+        id: toastId,
+      });
       getData();
     } catch (error: any) {
-      toast.error(`erro ao ${update ? "atualizar" : "cadastrar"} maquina`);
+      toast.error(`erro ao ${update ? "atualizar" : "cadastrar"} maquina`, {
+        id: toastId,
+      });
     } finally {
+      toast.remove(toastId);
+
       router.refresh();
     }
   };
@@ -135,21 +137,26 @@ const FormProducts = () => {
       <form
         onSubmit={form.handleSubmit(onSubmitting)}
         className="rounded-lg border w-full  px-3 md:px-6 focus-within:shadow-sm grid grid-cols-12 gap-2"
+        data-test="form-machine"
       >
         <TextField
+          data-test="name-form"
           className="border-1 border-r-emerald-400 col-span-6 "
           // InputProps={{ disableUnderline: true }}
           {...register("name", {
             required: "Nome é obrigatorio",
           })}
+          disabled={isLoading || isSubmitting}
           error={!!errors.name}
           helperText={!!errors.name?.message}
           value={form.watch("name") || ""}
-          label="Nome"
+          label="Nome da maquina"
           type="text"
           variant="outlined"
         />
         <TextField
+          disabled={isLoading || isSubmitting}
+          data-test="type-form"
           className="border-1 border-r-emerald-400 col-span-4 "
           {...register("type", {
             required: "Tipo é obrigatorio",
@@ -187,7 +194,7 @@ const FormProducts = () => {
           variant="outlined"
           type="submit"
           className="col-span-12 md:col-span-2 w-full py-4  mt-auto mb-auto"
-          disabled={isSubmitting}
+          disabled={isLoading || isSubmitting}
         >
           {isSubmitting ? "..." : ""}
           {hasUUid && form.getValues("id") === id ? "atualizar " : "criar"}
@@ -201,17 +208,9 @@ const FormProducts = () => {
         </>
       )}
       <div className=" pt-4 px-6  flex flex-col justify-between min-h-[70%] max-h-[90vh] ">
-        <TableMachine
-          data={data || []}
-          searching={isLoading}
-          callback={() => getData()}
-        />
+        <TableMachine data={data || []} searching={isLoading} callback={() => getData()} />
         <div className="flex  mt-auto">
-          <PaginationPage
-            page={pagination.page}
-            count={backPagination.count}
-            limit={pagination.limit}
-          />
+          <PaginationPage page={pagination.page} count={backPagination.count} limit={pagination.limit} />
         </div>
       </div>
     </div>

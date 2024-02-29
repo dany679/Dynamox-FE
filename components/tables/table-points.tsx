@@ -77,16 +77,12 @@ const TablePoints = ({ data, searching, callback }: TablePointsProps) => {
       cleanAfterRemove();
       toast.success("Maquina detetada com sucesso");
     } catch (error) {
-      toast.error(
-        "Erro ao detetar o produto verifique se há demandas feitas com o produto"
-      );
+      toast.error("Erro ao detetar o produto verifique se há demandas feitas com o produto");
     }
   };
 
   const handleEditUrl = async (idMachine: string) => {
-    const newUrl = hasId
-      ? url.replace(`&id=${id}`, `&id=${idMachine}`)
-      : url + `&id=${idMachine}`;
+    const newUrl = hasId ? url.replace(`&id=${id}`, `&id=${idMachine}`) : url + `&id=${idMachine}`;
     router.push(`${newUrl}`, { scroll: false });
     setOpenModal(true);
   };
@@ -119,6 +115,7 @@ const TablePoints = ({ data, searching, callback }: TablePointsProps) => {
               data.length > 0 &&
               data.map((row, index) => (
                 <StyledTableRow
+                  data-test={`row-point-${index}`}
                   key={row.id}
                   className={cn(
                     "cursor-pointer hover:bg-sky-200"
@@ -131,12 +128,8 @@ const TablePoints = ({ data, searching, callback }: TablePointsProps) => {
                   <StyledTableCell align="left">{row.name}</StyledTableCell>
                   <StyledTableCell align="left">{row.sensor}</StyledTableCell>
                   <StyledTableCell align="left">{row.sensorID}</StyledTableCell>
-                  <StyledTableCell align="left">
-                    {row.Machine.name}
-                  </StyledTableCell>
-                  <StyledTableCell align="left">
-                    {row.Machine.type}
-                  </StyledTableCell>
+                  <StyledTableCell align="left">{row.Machine.name}</StyledTableCell>
+                  <StyledTableCell align="left">{row.Machine.type}</StyledTableCell>
                   <StyledTableCell align="right">
                     <div className="flex flex-row-reverse items-center ">
                       <ActionDeleteModal
@@ -144,10 +137,7 @@ const TablePoints = ({ data, searching, callback }: TablePointsProps) => {
                         onConfirm={() => handleDeletePoint(row.id)}
                       />
 
-                      <Tooltip
-                        title="Editar"
-                        onClick={() => handleEditUrl(row.id)}
-                      >
+                      <Tooltip title="Editar" onClick={() => handleEditUrl(row.id)} data-test={`edit-row-${index}`}>
                         <EditIcon />
                       </Tooltip>
                     </div>
@@ -159,16 +149,9 @@ const TablePoints = ({ data, searching, callback }: TablePointsProps) => {
       </TableContainer>
       {searching &&
         Array.from(Array(5), (_, i) => (
-          <Skeleton
-            key={i}
-            variant="rectangular"
-            height={60}
-            className="mt-2"
-          />
+          <Skeleton data-test={`skeleton-row-point-${i}`} key={i} variant="rectangular" height={60} className="mt-2" />
         ))}
-      {!searching && data && data.length === 0 && (
-        <Empty label={"Nenhuma Maquina cadastrada"} />
-      )}
+      {!searching && data && data.length === 0 && <Empty label={"Nenhuma Maquina cadastrada"} />}
     </div>
   );
 };

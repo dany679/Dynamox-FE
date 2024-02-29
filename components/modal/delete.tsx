@@ -26,11 +26,7 @@ type Props = {
   onConfirm: () => void;
 };
 
-export default function ActionDeleteModal({
-  children,
-  onConfirm,
-  title,
-}: Props) {
+export default function ActionDeleteModal({ children, onConfirm, title }: Props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -39,7 +35,7 @@ export default function ActionDeleteModal({
 
   return (
     <div>
-      <Button onClick={handleOpen}>
+      <Button onClick={handleOpen} data-test="delete-button" type="button" name="delete">
         {children ? (
           children
         ) : (
@@ -77,6 +73,7 @@ export default function ActionDeleteModal({
           </Typography>
           <Stack direction="row-reverse" useFlexGap>
             <Button
+              data-test="button-delete-modal"
               variant="contained"
               color="warning"
               onClick={() => {
@@ -86,12 +83,7 @@ export default function ActionDeleteModal({
             >
               Excluir
             </Button>
-            <Button
-              variant="contained"
-              color="inherit"
-              className="mx-2"
-              onClick={handleClose}
-            >
+            <Button variant="contained" color="inherit" className="mx-2" onClick={handleClose}>
               Cancelar
             </Button>
           </Stack>

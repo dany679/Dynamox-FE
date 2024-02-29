@@ -7,11 +7,17 @@ import { useState } from "react";
 import { FieldError } from "react-hook-form";
 interface formProps {
   name: string;
+  label?: string;
   register: (any: any) => any;
   error: FieldError | undefined;
 }
 
-const InputPassword: React.FC<formProps> = ({ name, register, error }) => {
+const InputPassword: React.FC<formProps> = ({
+  name,
+  register,
+  error,
+  label,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -25,10 +31,13 @@ const InputPassword: React.FC<formProps> = ({ name, register, error }) => {
   return (
     <>
       <TextField
-        label="password"
+        label={label || name}
         variant="outlined"
         name={name}
-        type={showPassword ? "text" : "password"} // <-- This is where the magic happens
+        helperText={error?.message}
+        error={!!error}
+        FormHelperTextProps={{ id: "password-helper-id" }}
+        type={showPassword ? "text" : "password"}
         {...register(name)}
         {...error}
         InputProps={{
@@ -36,7 +45,7 @@ const InputPassword: React.FC<formProps> = ({ name, register, error }) => {
           endAdornment: (
             <InputAdornment position="end">
               <IconButton
-                aria-label="tmudar visibilidade da senha"
+                aria-label="mudar visibilidade da senha"
                 onClick={handleClickShowPassword}
                 onMouseDown={handleMouseDownPassword}
               >

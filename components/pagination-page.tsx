@@ -21,7 +21,7 @@ export default function PaginationPage({
   let url = `${pathname}?${searchParams}`;
 
   useEffect(() => {
-    if (!hasPage) window.location.href = url + "page=1";
+    // if (!hasPage) window.location.href = url + "page=1";
   }, [hasPage, url]);
 
   const newPage = (change: number) => {
@@ -36,10 +36,7 @@ export default function PaginationPage({
 
   return (
     <div className="flex flex-row w-full justify-center items-center text-gray-500">
-      <ArrowBackIosNewIcon
-        className="text-sm  text-center cursor-pointer"
-        onClick={() => page >= 2 && newPage(-1)}
-      />
+      <ArrowBackIosNewIcon className="text-sm  text-center cursor-pointer" onClick={() => page >= 2 && newPage(-1)} />
 
       <h5 className="text-md  text-center bold mx-3">
         Page {page || 1} / {totalPages || 1}

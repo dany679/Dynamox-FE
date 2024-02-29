@@ -8,19 +8,24 @@ import { signIn } from "next-auth/react";
 
 import { Heading } from "@/components/Heading";
 // import { FormControl } from "@/components/ui/form";
+import InputPassword from "@/components/inputs/password";
+import axios from "@/lib/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  LinearProgress,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import z from "zod";
 import { formSchema } from "./constants";
 
-// interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
-import InputPassword from "@/components/inputs/password";
-import axios from "@/lib/axios";
-import { Box, LinearProgress } from "@mui/material";
-import Link from "next/link";
-import toast from "react-hot-toast";
 export default function UserRegisterForm() {
   const router = useRouter();
   const onSubmitting = async (values: z.infer<typeof formSchema>) => {

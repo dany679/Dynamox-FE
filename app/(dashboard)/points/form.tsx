@@ -11,15 +11,7 @@ import { isUUID } from "@/utils/id";
 import { IPointsList } from "@/utils/interafce/points";
 import { NumParams, StringParams, StringParamsCheck } from "@/utils/params";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  TextField,
-} from "@mui/material";
+import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -37,8 +29,7 @@ const FormSearch = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [data, setData] = useState<IPointsList[] | []>([]);
-  const [backPagination, setBackPagination] =
-    useState<IPagination>(initialPagination);
+  const [backPagination, setBackPagination] = useState<IPagination>(initialPagination);
   const axiosAuth = useAxiosAuth();
   const router = useRouter();
   const pagination = {
@@ -62,14 +53,8 @@ const FormSearch = () => {
   const { isSubmitting, errors } = form.formState;
   const debouncedValue = useDebounce<string>(form.watch("name") || "", 500);
   const debouncedSensor = useDebounce<string>(form.watch("sensor"), 500);
-  const debouncedSensorID = useDebounce<string>(
-    form.watch("sensorID") || "",
-    500
-  );
-  const current = useMemo(
-    () => new URLSearchParams(Array.from(searchParams.entries())),
-    [searchParams]
-  );
+  const debouncedSensorID = useDebounce<string>(form.watch("sensorID") || "", 500);
+  const current = useMemo(() => new URLSearchParams(Array.from(searchParams.entries())), [searchParams]);
 
   const handleEditUrlCB = async (key: string, param: string) => {
     current.set(key, param);
@@ -90,12 +75,9 @@ const FormSearch = () => {
     [current, pathname, router]
   );
   useEffect(() => {
-    if (pagination.search !== form.watch("name"))
-      handleEditUrl("search", debouncedValue);
-    if (pagination.sensor !== form.watch("sensor"))
-      handleEditUrl("sensor", debouncedSensor);
-    if (pagination.sensorID !== form.watch("sensorID"))
-      handleEditUrl("sensorID", debouncedSensorID);
+    if (pagination.search !== form.watch("name")) handleEditUrl("search", debouncedValue);
+    if (pagination.sensor !== form.watch("sensor")) handleEditUrl("sensor", debouncedSensor);
+    if (pagination.sensorID !== form.watch("sensorID")) handleEditUrl("sensorID", debouncedSensorID);
   }, [
     debouncedValue,
     debouncedSensor,
@@ -121,14 +103,7 @@ const FormSearch = () => {
     } finally {
       setIsLoading(() => false);
     }
-  }, [
-    pagination.page,
-    axiosAuth,
-    pagination.limit,
-    pagination.search,
-    pagination.sensor,
-    pagination.sensorID,
-  ]);
+  }, [pagination.page, axiosAuth, pagination.limit, pagination.search, pagination.sensor, pagination.sensorID]);
   const removeUUI = useCallback(async () => {
     form.reset();
     const newUrl = url.replace(`&id=${id}`, "");
@@ -144,27 +119,22 @@ const FormSearch = () => {
 
   const cleanAfterSend = useCallback(async () => {
     let newUrl = url.replace(`&id=${id}`, "");
-    const totalPages = Math.ceil(
-      Number(backPagination.count + 1) / Number(pagination.limit)
-    );
+    const totalPages = Math.ceil(Number(backPagination.count + 1) / Number(pagination.limit));
     if (data && data?.length === pagination.limit) {
       // handleEditUrl("page", `${totalPages}`);
       newUrl = newUrl.replace(`page=${pagination.page}`, `page=${totalPages}`);
       router.push(`${newUrl}`, { scroll: false });
     }
     getData();
-  }, [
-    id,
-    url,
-    backPagination.count,
-    pagination.limit,
-    pagination.page,
-    data,
-    getData,
-    router,
-  ]);
+  }, [id, url, backPagination.count, pagination.limit, pagination.page, data, getData, router]);
   return (
     <>
+      <PointModal
+        update={false}
+        openModal={openModal}
+        closeModal={() => setOpenModal(false)}
+        callback={() => cleanAfterSend()}
+      />
       <ButtonClose
         classNameButton="top-2"
         onClick={() => {
@@ -201,14 +171,12 @@ const FormSearch = () => {
           type="text"
           variant="outlined"
         />
-        <FormControl
-          fullWidth
-          className="border-1 border-r-emerald-400 col-span-4 md:col-span-2 min-w-[80px]"
-        >
+        <FormControl fullWidth className="border-1 border-r-emerald-400 col-span-4 md:col-span-2 min-w-[80px]">
           <InputLabel id="sensor-point-label">Sensor</InputLabel>
           <Select
             labelId="sensor-point-label"
             id="sensor-point"
+            data-test="sensor-point-id"
             value={form.watch("sensor") || ""}
             defaultValue={""}
             label="Sensor"
@@ -217,8 +185,8 @@ const FormSearch = () => {
               form.setValue("sensor", value);
             }}
           >
-            {sensorsList.map((value) => (
-              <MenuItem key={value} value={value}>
+            {sensorsList.map((value, index) => (
+              <MenuItem key={value} value={value} data-test={`${value}-id`}>
                 {value}
               </MenuItem>
             ))}
@@ -226,23 +194,17 @@ const FormSearch = () => {
           </Select>
         </FormControl>
 
-        <PointModal
-          update={false}
-          openModal={openModal}
-          closeModal={() => setOpenModal(false)}
-          callback={() => cleanAfterSend()}
+        <Button
+          variant="outlined"
+          data-test="button-new-point-id"
+          type="button"
+          className="col-span-2 md:col-span-2 w-full py-4  mt-auto mb-auto "
+          disabled={isSubmitting || isLoading}
+          onClick={() => setOpenModal(true)}
         >
-          <Button
-            variant="outlined"
-            type="button"
-            className="col-span-2 md:col-span-2 w-full py-4  mt-auto mb-auto "
-            disabled={isSubmitting}
-            onClick={() => setOpenModal(true)}
-          >
-            {isSubmitting ? "..." : ""}
-            Novo
-          </Button>
-        </PointModal>
+          {isSubmitting ? "..." : ""}
+          Novo
+        </Button>
       </form>
       {isSubmitting && (
         <>
@@ -252,17 +214,9 @@ const FormSearch = () => {
         </>
       )}
       <div className=" pt-4 px-6  flex flex-col justify-between min-h-[70%] max-h-[90vh] ">
-        <TablePoints
-          data={data}
-          searching={isLoading}
-          callback={() => getData()}
-        />
+        <TablePoints data={data} searching={isLoading} callback={() => getData()} />
 
-        <PaginationPage
-          page={pagination.page}
-          count={backPagination.count}
-          limit={pagination.limit}
-        />
+        <PaginationPage page={pagination.page} count={backPagination.count} limit={pagination.limit} />
       </div>
     </>
   );

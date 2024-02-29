@@ -1,5 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // async headers() {
+  //   return [
+  //     {
+  //       source: "/points",
+  //       headers: [
+  //         {
+  //           key: "title",
+  //           value: "NEW TITLE",
+  //         },
+  //       ],
+  //     },
+  // ];
+  // },
   typescript: {
     // !! WARN !!
     // Dangerously allow production builds to successfully complete even if
