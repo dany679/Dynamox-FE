@@ -7,7 +7,7 @@ const pointData = {
 describe("machine page should be correct and need be able to add,edit,delete and pagination", () => {
   beforeEach(() => {
     // cy.restoreLocalStorage();
-    cy.login("login");
+    cy.login("points");
     cy.visit("/points");
   });
   afterEach(() => {

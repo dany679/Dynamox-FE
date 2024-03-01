@@ -11,6 +11,7 @@ export default defineConfig({
     NEXT_BASE_HTTP: process.env.NEXT_BASE_HTTP,
   },
   e2e: {
+    defaultCommandTimeout: 10000,
     env: {
       ...defaultEnv,
       email: process.env.email,
@@ -20,6 +21,7 @@ export default defineConfig({
     specPattern: "cypress/e2e/**",
     video: false,
     setupNodeEvents(on, config) {
+      defaultCommandTimeout: 10000;
       // implement node event listeners here
     },
   },
