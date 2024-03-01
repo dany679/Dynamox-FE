@@ -5,6 +5,7 @@ const defaultEnv = {
   webTitle: "Company Box",
 };
 export default defineConfig({
+  projectId: "i5nom3",
   env: {
     ...defaultEnv,
     NEXT_BASE_HTTP: process.env.NEXT_BASE_HTTP,

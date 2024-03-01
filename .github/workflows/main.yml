@@ -13,11 +13,13 @@ jobs:
       NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
       NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
       NEXT_BASE_HTTP: ${{ secrets.NEXT_BASE_HTTP }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Cypress run
         uses: actions/checkout@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
       - name: tell me secret email
         run: echo " my secret email ${{ secrets.email }}"
       # Install NPM dependencies, cache them correctly
@@ -29,7 +31,7 @@ jobs:
           project: ./
           browser: chrome
           build: yarn build
+          record: true
           start: yarn start
           wait-on: "http://localhost:3000"
-          record: true
-          parallel: true
+          # parallel: true
