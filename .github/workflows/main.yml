@@ -20,18 +20,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Cypress run
         uses: cypress-io/github-action@v6
-      - name: tell me secret email
-        run: echo " my secret email ${{ secrets.email }}"
-      # Install NPM dependencies, cache them correctly
-      # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
         with:
           # node-version: "18.x"
-          project: ./
-          browser: chrome
-          build: yarn build
+          # project: ./
+          # browser: chrome
+          build: yarn dev
           record: true
-          start: yarn start
           wait-on: "http://localhost:3000"
           # parallel: true
