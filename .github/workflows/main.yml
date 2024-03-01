@@ -17,8 +17,8 @@ jobs:
           # node-version: "18.x"
           # project: ./
           # browser: chrome
-          build: yarn dev
           record: true
+          start: yarn dev
           wait-on: "http://localhost:3000"
           # parallel: true
         env:
