@@ -18,15 +18,12 @@ jobs:
         uses: actions/checkout@v4
       - name: tell me secret email
         run: echo " my secret email ${{ secrets.email }}"
-      - name: tell me var email
-        run: echo " my var email ${{ vars.email }}"
-      - name: tell me secret NEXTAUTH_URL
-        run: echo " my secret NEXTAUTH_URL ${{ vars.NEXTAUTH_URL }}"
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
+          # node: 18
           project: ./
           browser: chrome
           build: yarn build
