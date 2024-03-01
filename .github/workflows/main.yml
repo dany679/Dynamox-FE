@@ -4,20 +4,13 @@ on: push
 
 jobs:
   cypress-run:
-    environment: production
     runs-on: ubuntu-22.04
-    env:
-      email: ${{ secrets.email }}
-      password: ${{ secrets.password }}
-      baseUrl: ${{ secrets.baseUrl }}
-      NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-      NEXT_BASE_HTTP: ${{ secrets.NEXT_BASE_HTTP }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+    environment: production
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
@@ -28,3 +21,12 @@ jobs:
           record: true
           wait-on: "http://localhost:3000"
           # parallel: true
+        env:
+          email: ${{ secrets.email }}
+          password: ${{ secrets.password }}
+          baseUrl: ${{ secrets.baseUrl }}
+          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXT_BASE_HTTP: ${{ secrets.NEXT_BASE_HTTP }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
