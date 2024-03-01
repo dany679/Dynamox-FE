@@ -27,9 +27,9 @@ declare namespace Cypress {
     editMachine(name: string, type: string): Chainable<Element>;
   }
 }
-describe("machine page should be correct and need be able to add,edit,delete and pagination", () => {
+describe("machine page  workflow", () => {
   beforeEach(() => {
-    cy.login("login");
+    cy.login("machine");
     cy.visit("/");
   });
 

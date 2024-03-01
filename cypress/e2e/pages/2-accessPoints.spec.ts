@@ -4,7 +4,7 @@ const pointData = {
   sensorIDUpdate: "testing-point-sensorID-update",
 };
 
-describe("machine page should be correct and need be able to add,edit,delete and pagination", () => {
+describe("points page workflow", () => {
   beforeEach(() => {
     // cy.restoreLocalStorage();
     cy.login("points");
