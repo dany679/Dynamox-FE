@@ -15,6 +15,8 @@ jobs:
       NEXT_BASE_HTTP: ${{ secrets.NEXT_BASE_HTTP }}
     steps:
       - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress run
         uses: actions/checkout@v4
       - name: tell me secret email
         run: echo " my secret email ${{ secrets.email }}"
@@ -23,9 +25,11 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          # node: 18
+          # node-version: "18.x"
           project: ./
           browser: chrome
           build: yarn build
           start: yarn start
           wait-on: "http://localhost:3000"
+          record: true
+          parallel: true
