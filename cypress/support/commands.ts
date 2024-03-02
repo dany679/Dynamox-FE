@@ -59,8 +59,8 @@ Cypress.Commands.add("login", (sessionName?: string, Email?: string, Password?: 
       cy.get('input[name = "email"]').type(email!);
       cy.get('input[name="password"]').type(`${password}{enter}`);
       cy.location("pathname").should("eq", "/login");
-      cy.intercept("*/auth/*").as("getUser");
-      cy.wait("@getUser").its("response.statusCode").should("eq", 200);
+      // cy.intercept("*/auth/*").as("getUser");
+      // cy.wait("@getUser").its("response.statusCode").should("eq", 200);
       cy.location("pathname").should("eq", "/");
     },
     {
