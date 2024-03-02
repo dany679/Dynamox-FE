@@ -5,20 +5,20 @@ describe("login auth", () => {
     cy.clearAllLocalStorage();
     cy.visit("/login");
   });
-  it.skip("should redirect unauthenticated user to sign-in page", () => {
+  it("should redirect unauthenticated user to sign-in page", () => {
     cy.clickLink("Registre-se");
 
     console.log(Cypress.env("webTitle"), "AKO");
     cy.get("title").should("include.text", "registrar | " + Cypress.env("webTitle"));
   });
-  it.skip("should redirect unauthenticated user to login page", () => {
+  it("should redirect unauthenticated user to login page", () => {
     cy.url().should("eq", Cypress.config().baseUrl + "/login");
     cy.get("h1").should("contain.text", "Login");
     cy.visit("/");
     cy.get("h1").should("contain.text", "Login");
     cy.get("title").should("include.text", "login | " + Cypress.env("webTitle"));
   });
-  it.skip("should show erros if the fields is black or incorrect", () => {
+  it("should show erros if the fields is black or incorrect", () => {
     cy.get('input[name = "email"]').type("user check now"); // Use email id
     cy.get('input[name="password"]');
     cy.get('button[type="submit"]').click();

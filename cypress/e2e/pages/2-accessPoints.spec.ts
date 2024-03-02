@@ -60,7 +60,7 @@ describe("points page workflow", () => {
     });
     cy.getDataTest("form-point-button").click();
   });
-  it.only("Should be able to edit point", () => {
+  it("Should be able to edit point", () => {
     const random = Math.floor(Math.random() * 10000000);
     cy.getDataTest("skeleton-row-point-1").should("exist");
     cy.getDataTest("skeleton-row-point-1").should("not.exist");
