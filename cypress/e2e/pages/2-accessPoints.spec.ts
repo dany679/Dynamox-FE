@@ -35,7 +35,7 @@ describe("points page workflow", () => {
     cy.getDataTest("TcAg-id").click();
   });
 
-  it.only("Should be able to create", () => {
+  it("Should be able to create", () => {
     const random = Math.floor(Math.random() * 10000000);
     cy.getDataTest("button-new-point-id").click();
     cy.getDataTest("skeleton-modal-point").should("exist");
