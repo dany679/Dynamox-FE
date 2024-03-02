@@ -55,10 +55,13 @@ describe("points page workflow", () => {
 
     cy.get("@auto-complete").trigger("mouseover");
     cy.get("@auto-complete").click();
-    cy.get("@auto-complete").focused().type("point");
+    cy.get("@auto-complete").focused().type("testing");
     cy.get("@auto-complete").trigger("change");
     cy.get("@auto-complete").then(() => {
-      cy.get(`li[id="auto-complete-option-0"]`).contains(/point/i).first().click();
+      cy.get(`li[id="auto-complete-option-0"]`)
+        .contains(/testing/i)
+        .first()
+        .click();
     });
     cy.getDataTest("form-point-button").click();
   });
