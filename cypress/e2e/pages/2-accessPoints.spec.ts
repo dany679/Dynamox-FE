@@ -5,6 +5,11 @@ const pointData = {
   sensorIDUpdate: "testing-point-sensorID-update",
 };
 
+declare namespace Cypress {
+  interface Chainable {
+    sendPoint(name: string, type: string): Chainable<Element>;
+  }
+}
 describe("points page workflow", () => {
   beforeEach(() => {
     // cy.restoreLocalStorage();
@@ -30,7 +35,7 @@ describe("points page workflow", () => {
     cy.getDataTest("TcAg-id").click();
   });
 
-  it("Should be able to create", () => {
+  it.only("Should be able to create", () => {
     const random = Math.floor(Math.random() * 10000000);
     cy.getDataTest("button-new-point-id").click();
     cy.getDataTest("skeleton-modal-point").should("exist");
@@ -50,13 +55,10 @@ describe("points page workflow", () => {
 
     cy.get("@auto-complete").trigger("mouseover");
     cy.get("@auto-complete").click();
-    cy.get("@auto-complete").focused().type("testing");
+    cy.get("@auto-complete").focused().type("point");
     cy.get("@auto-complete").trigger("change");
     cy.get("@auto-complete").then(() => {
-      cy.get(`li[id="auto-complete-option-0"]`)
-        .contains(/testing/i)
-        .first()
-        .click();
+      cy.get(`li[id="auto-complete-option-0"]`).contains(/point/i).first().click();
     });
     cy.getDataTest("form-point-button").click();
   });
