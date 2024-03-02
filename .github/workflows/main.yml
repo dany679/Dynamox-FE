@@ -14,11 +14,9 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          # node-version: "18.x"
-          # project: ./
-          # browser: chrome
           record: true
-          start: yarn dev
+          build: yarn build
+          start: yarn start
           wait-on: "http://localhost:3000"
           # parallel: true
         env:
@@ -30,3 +28,4 @@ jobs:
           NEXT_BASE_HTTP: ${{ secrets.NEXT_BASE_HTTP }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          NEXT_PUBLIC_HTTP: ${{ secrets.NEXT_PUBLIC_HTTP }}

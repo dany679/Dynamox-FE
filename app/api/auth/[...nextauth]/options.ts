@@ -50,12 +50,7 @@ export const options: NextAuthOptions = {
     async session({ session, token, user }) {
       session.user = token as any;
 
-      return {
-        ...session,
-        user: {
-          ...session.user,
-        },
-      };
+      return session;
     },
   },
   pages: {

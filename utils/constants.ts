@@ -3,7 +3,10 @@ import MonitorIcon from "@mui/icons-material/Monitor";
 import "dotenv/config";
 import { ComponentType } from "react";
 
-export const BASE_HTTP = process.env.NEXT_BASE_HTTP;
+export const BASE_HTTP = process.env.NEXT_PUBLIC_HTTP;
+// export const BASE_HTTP = process.env.NEXT_BASE_HTTP;
+// console.log(process.env.NEXT_PUBLIC_HTTP, "HIT");
+// console.log(process.env.NEXT_BASE_HTTP, "BASE HTTP");
 
 export type IconComponent =
   | ComponentType<{

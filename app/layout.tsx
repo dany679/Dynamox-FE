@@ -20,6 +20,7 @@ const inter = Inter({ subsets: ["latin"] });
 // };
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);
+  // console.log(session, "comming");
   return (
     <html lang="en" className="h-full min-h-full">
       <body className={cn("h-full min-h-full ", inter)}>
