@@ -1,6 +1,8 @@
 const machineData = {
   name: "testing-machine",
   type: "testing-machine-type",
+  nameUpdate: "testing-machine-update",
+  typeUpdate: "testing-machine-type-update",
 };
 
 Cypress.Commands.add("sendMachine", (name, type) => {
@@ -48,7 +50,7 @@ describe("machine page  workflow", () => {
     cy.get('button[type="submit"]').should("be.disabled");
   });
   it("should possible edit the machine", () => {
-    cy.sendMachine("verify-name", "verify-type");
+    cy.sendMachine("testing-verify-name", "testing-verify-type");
     cy.getDataTest("skeleton-machine")
       .should("not.exist")
       .then(() => {

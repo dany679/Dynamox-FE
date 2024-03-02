@@ -1,6 +1,7 @@
 const pointData = {
   name: "testing-point",
   nameUpdate: "testing-point-update ",
+  sensorID: "testing-point-sensorID",
   sensorIDUpdate: "testing-point-sensorID-update",
 };
 
@@ -9,9 +10,6 @@ describe("points page workflow", () => {
     // cy.restoreLocalStorage();
     cy.login("points");
     cy.visit("/points");
-  });
-  afterEach(() => {
-    // cy.saveLocalStorage();
   });
 
   it("should be show current html", () => {
@@ -62,11 +60,11 @@ describe("points page workflow", () => {
     });
     cy.getDataTest("form-point-button").click();
   });
-  it("Should be able to edit", () => {
+  it.only("Should be able to edit point", () => {
     const random = Math.floor(Math.random() * 10000000);
     cy.getDataTest("skeleton-row-point-1").should("exist");
     cy.getDataTest("skeleton-row-point-1").should("not.exist");
-    cy.getDataTest("edit-row-1").click();
+    cy.getDataTest("edit-row-0").click();
     cy.getDataTest("skeleton-modal-point").should("exist");
     cy.getDataTest("skeleton-modal-point").should("not.exist");
     cy.getByDataTestAndClear("point-name-id").as("name").should("exist");
