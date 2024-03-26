@@ -5,15 +5,18 @@ const ButtonClose = ({
   onClick,
   className,
   classNameButton,
+  ...props
 }: {
   onClick: () => void;
   className?: string;
   classNameButton?: string;
+  props?: any;
 }) => {
   return (
     <div className={cn(" flex w-full justify-end mr-5 ", className)}>
       <Tooltip title="limpar dados">
         <Button
+          {...props}
           variant="outlined"
           typeof="button"
           onClick={onClick}

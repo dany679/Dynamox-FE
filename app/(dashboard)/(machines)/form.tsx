@@ -113,8 +113,6 @@ const FormProducts = () => {
         id: toastId,
       });
     } finally {
-      toast.remove(toastId);
-
       router.refresh();
     }
   };

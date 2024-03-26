@@ -136,6 +136,7 @@ const FormSearch = () => {
         callback={() => cleanAfterSend()}
       />
       <ButtonClose
+      data-test="button-clear"
         classNameButton="top-2"
         onClick={() => {
           if (!id) {

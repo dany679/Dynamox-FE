@@ -12,7 +12,6 @@ declare namespace Cypress {
 }
 describe("points page workflow", () => {
   beforeEach(() => {
-    // cy.restoreLocalStorage();
     cy.login("points");
     cy.visit("/points");
   });
@@ -30,9 +29,11 @@ describe("points page workflow", () => {
   });
   it("Should be able to clean the search", () => {
     cy.get("input[name='name']").type("search");
-    cy.get("input[name='sensorID']").type("sensor");
+    cy.get("input[name='sensorID']").type("testing");
+    cy.getByNameAndClear("sensorID").type("sensor");
     cy.getDataTest("sensor-point-id").click();
     cy.getDataTest("TcAg-id").click();
+    cy.getDataTest("button-clear").click();
   });
 
   it("Should be able to create", () => {
@@ -64,6 +65,8 @@ describe("points page workflow", () => {
         .click();
     });
     cy.getDataTest("form-point-button").click();
+    cy.contains(/salvando/gi);
+    cy.getDataTest("skeleton-row-point-1").should("exist");
   });
   it("Should be able to edit point", () => {
     const random = Math.floor(Math.random() * 10000000);

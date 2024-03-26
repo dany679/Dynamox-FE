@@ -130,6 +130,7 @@ export default function PointModal({
   }, [updatedModal, form]);
 
   const onSubmitting = async (values: z.infer<typeof formSchemaPoint>) => {
+    const toastId = toast.loading("Salvando...");
     try {
       const update = values.id;
       const req = update
@@ -141,10 +142,15 @@ export default function PointModal({
             machineId: values.machineId,
           });
       // removeUUI();
-      toast.success(`Ponto ${update ? "atualizado" : "cadastrado"} com sucesso`);
+      toast.success(`Ponto ${update ? "atualizado" : "cadastrado"} com sucesso`, {
+        id: toastId,
+        duration: 5000,
+      });
       callback();
     } catch (error: any) {
-      toast.error(`Erro ao ${update ? "atualizar" : "cadastrar"} ponto`);
+      toast.error(`Erro ao ${update ? "atualizar" : "cadastrar"} ponto`, {
+        id: toastId,
+      });
     } finally {
       closeModal();
     }
