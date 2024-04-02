@@ -8,7 +8,7 @@ jobs:
     environment: production
 
     steps:
-      - uses: actions/checkout@v4
+      # - uses: actions/checkout@v4
       - name: Enable Corepack
         run: corepack enable
 
@@ -18,8 +18,12 @@ jobs:
           node-version: "20.x"
           cache: "yarn"
 
-      - name: Cypress run
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cypress Run
         uses: cypress-io/github-action@v6
+
         with:
           record: true
           build: yarn build
