@@ -42,11 +42,7 @@ jobs:
 
       - name: Test the app
 
-        run: |
-          yarn start &&
-          sleep 10 &&
-          curl http://localhost:3000 &&
-          yarn test
+        run: yarn start & yarn test
 
       # - name: Cypress run
       #   uses: cypress-io/github-action@v6
