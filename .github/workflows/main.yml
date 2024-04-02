@@ -43,7 +43,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          build: yarn add cypress --dev
+          build: yarn add cypress
           # install: false
           record: true
           start: yarn start
