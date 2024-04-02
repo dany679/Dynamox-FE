@@ -6,65 +6,36 @@ jobs:
   cypress-run:
     runs-on: ubuntu-22.04
     environment: production
-    env:
-      email: ${{ secrets.email }}
-      password: ${{ secrets.password }}
-      baseUrl: ${{ secrets.baseUrl }}
-      NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-      NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-      # NEXT_BASE_HTTP: ${{ secrets.NEXT_BASE_HTTP }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-      NEXT_PUBLIC_HTTP: ${{ secrets.NEXT_PUBLIC_HTTP }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Enable Corepack
-        run: corepack enable
 
-      - name: Use Node.js 20.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
-          cache: "yarn"
+    steps:
+      # - uses: actions/checkout@v3
+
+      # - name: Set Node.js 20.x
+      #   uses: actions/setup-node@v3
+
+      # - name: Run install
+      #   uses: borales/actions-yarn@v4
+      #   with:
+      #     cmd: install # wi
 
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run install
-        uses: borales/actions-yarn@v4
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
         with:
-          cmd: install # will run `yarn install` command
-
-      - name: crate build
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build # will run `yarn run` command
-
-      - name: Test the app
-        run: yarn start & yarn test
-
-      # - name: Cypress run
-      #   uses: cypress-io/github-action@v6
-      #   with:
-      #     build: yarn add cypress
-      #     # install: false
-      #     record: true
-      #     start: yarn start
-      #     wait-on: "http://localhost:3000"
-      # - name: Start build
-      #   uses: borales/actions-yarn@v4
-      #   with:
-      #     cmd: start # will run `yarn run` command
-
-      #   with:
-      #     cmd: test # will run `yarn test` command
-      # env:
-      #   email: ${{ secrets.email }}
-      #   password: ${{ secrets.password }}
-      #   baseUrl: ${{ secrets.baseUrl }}
-      #   NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
-      #   NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-      #   # NEXT_BASE_HTTP: ${{ secrets.NEXT_BASE_HTTP }}
-      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-      #   NEXT_PUBLIC_HTTP: ${{ secrets.NEXT_PUBLIC_HTTP }}
+          record: true
+          build: npm build
+          start: npm start
+          wait-on: "http://localhost:3000"
+          # parallel: true
+        env:
+          email: ${{ secrets.email }}
+          password: ${{ secrets.password }}
+          baseUrl: ${{ secrets.baseUrl }}
+          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          # NEXT_BASE_HTTP: ${{ secrets.NEXT_BASE_HTTP }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          NEXT_PUBLIC_HTTP: ${{ secrets.NEXT_PUBLIC_HTTP }}
