@@ -8,6 +8,11 @@ jobs:
     environment: production
 
     steps:
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install # wi
+
       - name: Checkout
         uses: actions/checkout@v4
 
