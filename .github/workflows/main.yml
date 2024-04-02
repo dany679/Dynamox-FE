@@ -43,7 +43,7 @@ jobs:
       - name: Test the app
 
         run: |
-          yarn start &
+          yarn start &&
           sleep 10 &&
           curl http://localhost:3000 &&
           yarn test
