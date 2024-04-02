@@ -39,9 +39,8 @@ jobs:
 
       - name: Test the app
         uses: borales/actions-yarn@v4.2.0
-        run: |
-          yarn start &
-          yarn test
+        with:
+          run: yarn start & yarn test
 
       - name: Run Yarn Start and Yarn Test
         run: |
