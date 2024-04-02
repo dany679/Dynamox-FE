@@ -1,14 +1,9 @@
-name: Cypress Tests
-
-on: [pull_request]
-
+name: End-to-end tests
+on: push
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04
-    environment: production
-
     steps:
-      # - uses: actions/checkout@v4
       - name: Enable Corepack
         run: corepack enable
 
@@ -20,10 +15,10 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Cypress Run
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
         uses: cypress-io/github-action@v6
-
         with:
           record: true
           build: yarn build
