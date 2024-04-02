@@ -40,11 +40,6 @@ jobs:
         with:
           cmd: build # will run `yarn run` command
 
-      - name: Build the app
-        uses: borales/actions-yarn@v4
-        with:
-          build: yarn build
-
       - name: Test the app
         uses: borales/actions-yarn@v4
         with:
