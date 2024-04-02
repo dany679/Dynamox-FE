@@ -37,12 +37,17 @@ jobs:
         with:
           cmd: build # will run `yarn run` command
 
-
-      - name: Run Yarn Start and Yarn Test
+      - name: Test the app
+        uses: borales/actions-yarn@v4.2.0
         run: |
           yarn start &
           yarn test
           
+      - name: Run Yarn Start and Yarn Test
+        run: |
+          yarn start &
+          yarn test
+
       - name: Test the app
         uses: borales/actions-yarn@v4.2.0
         with:
