@@ -25,13 +25,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-          cache: "yarn"
-
-      - name: Install dependencies 📦
-        run: yarn install --frozen-lockfile
-      - name: ECHO 📦
-        run: echo yarn -v
-      # - name: Install dependencies  📦
+          cache: "yarn"📦
 
       - name: Run install
         uses: borales/actions-yarn@v4.2.0
@@ -43,10 +37,17 @@ jobs:
         with:
           cmd: build # will run `yarn run` command
 
+
+      - name: Run Yarn Start and Yarn Test
+        run: |
+          yarn start &
+          yarn test
+          
       - name: Test the app
         uses: borales/actions-yarn@v4.2.0
         with:
           cmd: test
+
 
       # - name: Cypress run
       #   uses: cypress-io/github-action@v6
