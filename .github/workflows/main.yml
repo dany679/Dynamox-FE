@@ -35,10 +35,15 @@ jobs:
         with:
           cmd: install # will run `yarn install` command
 
-      - name: Run build
+      - name: crate build
         uses: borales/actions-yarn@v4
         with:
           cmd: build # will run `yarn run` command
+
+      - name: Start build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: start # will run `yarn run` command
 
       - name: Test the app
         uses: borales/actions-yarn@v4
