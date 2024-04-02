@@ -41,10 +41,7 @@ jobs:
           cmd: build # will run `yarn run` command
 
       - name: Test the app
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: start & test #
-
+        run: yarn start & yarn test
 
       # - name: Cypress run
       #   uses: cypress-io/github-action@v6
