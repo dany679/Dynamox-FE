@@ -40,10 +40,8 @@ jobs:
         with:
           cmd: build # will run `yarn run` command
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Test the app
+
         run: |
           yarn start &
           sleep 10 &&
