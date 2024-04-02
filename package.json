@@ -10,6 +10,7 @@
     "yarn-install": "yarn install --immutable",
     "cy:open": "cypress open",
     "cy:run": "cypress  run",
+    "test-ci": " next run & cypress  run",
     "test": " cypress  run",
     "cy:spec": "cypress run --spec"
   },
