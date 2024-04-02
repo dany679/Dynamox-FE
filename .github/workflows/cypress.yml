@@ -1,7 +1,7 @@
 name: End-to-end tests
 on: push
 jobs:
-  cypress-run:
+  cypress:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
