@@ -50,13 +50,18 @@ MIT
 ### create .env file
 
 ```shell
-
-  NEXT_PUBLIC_HTTP=https://fly-teste.fly.dev
-  NEXTAUTH_SECRET=
+  #baseUrl FOR CYPRESS TESTING IN GENERAL THE SAME AS THE NEXTAUTH_URL
+  baseUrl=http://localhost:3000
   NEXTAUTH_URL=http://localhost:3000
-  email=
-  password=
-  projectId=
+  NEXTAUTH_SECRET=<openssl rand -base64 32 as NEXTAUTH_SECRET>
+  NEXT_PUBLIC_HTTP= probably https://fly-teste.fly.dev or http://localhost:8080
+  # check readme.md for more info
+  NEXT_PUBLIC_HTTP=<API_URL>
+  # create you account and add above for testing in cypress
+  email=<EMAIL>
+  password=<PASSWORD>
+   projectId=i5nom3
+
   #project id from cypress
 
 ```
