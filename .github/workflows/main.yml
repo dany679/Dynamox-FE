@@ -30,20 +30,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Cypress run
+      - name: Run install
         uses: borales/actions-yarn@v4
         with:
           cmd: install # will run `yarn install` command
 
-      - name: Test the app
+      - name: Run build
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build # will run `yarn run` command
+
+      - name: Build the app
         uses: borales/actions-yarn@v4
         with:
           build: yarn build
-          start: yarn start
-          wait-on: "http://localhost:3000"
-          cmd: test # will run `yarn
-          record: true
-          # parallel: true
+
+      - name: Test the app
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: test # will run `yarn test` command
         env:
           email: ${{ secrets.email }}
           password: ${{ secrets.password }}
