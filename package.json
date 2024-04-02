@@ -2,12 +2,6 @@
   "name": "Company-0",
   "version": "0.1.0",
   "private": true,
-  "resolutions": {
-    "jackspeak": "2.1.1"
-  },
-  "engines": {
-    "node": ">=18.17.0"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "DISABLE_ESLINT_PLUGIN=true next build ",
