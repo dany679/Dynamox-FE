@@ -40,17 +40,7 @@ jobs:
       - name: Test the app
         uses: borales/actions-yarn@v4.2.0
         with:
-          run: yarn start & yarn test
-
-      - name: Run Yarn Start and Yarn Test
-        run: |
-          yarn start &
-          yarn test
-
-      - name: Test the app
-        uses: borales/actions-yarn@v4.2.0
-        with:
-          cmd: test
+          cmd: test-ci
 
       # - name: Cypress run
       #   uses: cypress-io/github-action@v6
