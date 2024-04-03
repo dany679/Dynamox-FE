@@ -12,7 +12,7 @@ jobs:
       baseUrl: ${{ secrets.baseUrl }}
       NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
       NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-      # NEXT_BASE_HTTP: ${{ secrets.NEXT_BASE_HTTP }}
+      projectId: ${{ secrets.NEXT_BASE_HTTP }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
       NEXT_PUBLIC_HTTP: ${{ secrets.NEXT_PUBLIC_HTTP }}
