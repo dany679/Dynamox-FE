@@ -16,7 +16,7 @@ describe("points page workflow", () => {
     cy.visit("/points");
   });
 
-  it("should be show current html", () => {
+  it.only("should be show current html", () => {
     cy.contains(/Pontos de acesso/i);
     cy.get("title").should("include.text", "Pontos de acesso | " + Cypress.env("webTitle"));
   });

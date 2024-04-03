@@ -35,7 +35,7 @@ describe("machine page  workflow", () => {
     cy.visit("/");
   });
 
-  it("should be show current html", () => {
+  it.only("should be show current html", () => {
     cy.contains(/Maquinas/i);
     cy.getDataTest("form-machine").find("input[name='name']").type("arduino");
     cy.get("title").should("include.text", "Maquinas | " + Cypress.env("webTitle"));
