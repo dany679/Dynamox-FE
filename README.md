@@ -60,7 +60,7 @@ MIT
   # create you account and add above for testing in cypress
   email=<EMAIL>
   password=<PASSWORD>
-   projectId=i5nom3
+   projectId=1hv9x5
 
   #project id from cypress
 

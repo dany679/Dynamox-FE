@@ -9,12 +9,13 @@
     "lint": "next lint",
     "yarn-install": "yarn install --immutable",
     "cy:open": "cypress open",
-    "start-watch": "wait-on http://localhost:3000",
+    "start-watch": "wait-on http://localhost:3000 this-name-can-be-as-long-as-it-needs-to-be",
     "cy:run": "cypress run",
     "testd": "cypress run  && pkill Xvfb  ",
-    "stop": "npx kill-port 3000",
-    "test": "npx cypress run --record  ",
-    "test-ci": " CI=true run-p  start start-watch test  ",
+    "stop": "killall -SIGINT Company-0",
+    "test": "npx cypress run --record --key fd629ced-45be-47c1-85cc-175d3ffb6f41",
+    "test-local": "npx cypress run ",
+    "test-ci": " CI=true run-p  start start-watch test-local && stop ",
     "cy:spec": "cypress run --spec"
   },
   "dependencies": {

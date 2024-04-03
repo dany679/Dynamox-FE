@@ -7,7 +7,7 @@ const defaultEnv = {
   CYPRESS_RECORD_KEY: "fd629ced-45be-47c1-85cc-175d3ffb6f41",
 };
 export default defineConfig({
-  projectId: process.env.projectId,
+  projectId: "1hv9x5",
   env: {
     ...defaultEnv,
     NEXT_BASE_HTTP: process.env.NEXT_PUBLIC_HTTP,
