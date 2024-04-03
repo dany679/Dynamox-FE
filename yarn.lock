@@ -1290,6 +1290,7 @@ __metadata:
     react-hot-toast: "npm:^2.4.1"
     react-markdown: "npm:^8.0.7"
     react-redux: "npm:^8.1.3"
+    start-server-and-test: "npm:^2.0.3"
     tailwind-merge: "npm:^1.14.0"
     tailwindcss: "npm:3.3.3"
     tailwindcss-animate: "npm:^1.0.6"
@@ -1787,7 +1788,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bluebird@npm:^3.7.2":
+"bluebird@npm:3.7.2, bluebird@npm:^3.7.2":
   version: 3.7.2
   resolution: "bluebird@npm:3.7.2"
   checksum: 10c0/680de03adc54ff925eaa6c7bb9a47a0690e8b5de60f4792604aae8ed618c65e6b63a7893b57ca924beaf53eee69c5af4f8314148c08124c550fe1df1add897d2
@@ -1971,7 +1972,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"check-more-types@npm:^2.24.0":
+"check-more-types@npm:2.24.0, check-more-types@npm:^2.24.0":
   version: 2.24.0
   resolution: "check-more-types@npm:2.24.0"
   checksum: 10c0/93fda2c32eb5f6cd1161a84a2f4107c0e00b40a851748516791dd9a0992b91bdf504e3bf6bf7673ce603ae620042e11ed4084d16d6d92b36818abc9c2e725520
@@ -2214,7 +2215,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2":
+"cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
   dependencies:
@@ -2358,7 +2359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.0.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4":
+"debug@npm:4, debug@npm:4.3.4, debug@npm:^4.0.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -3123,6 +3124,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"execa@npm:5.1.1":
+  version: 5.1.1
+  resolution: "execa@npm:5.1.1"
+  dependencies:
+    cross-spawn: "npm:^7.0.3"
+    get-stream: "npm:^6.0.0"
+    human-signals: "npm:^2.1.0"
+    is-stream: "npm:^2.0.0"
+    merge-stream: "npm:^2.0.0"
+    npm-run-path: "npm:^4.0.1"
+    onetime: "npm:^5.1.2"
+    signal-exit: "npm:^3.0.3"
+    strip-final-newline: "npm:^2.0.0"
+  checksum: 10c0/c8e615235e8de4c5addf2fa4c3da3e3aa59ce975a3e83533b4f6a71750fb816a2e79610dc5f1799b6e28976c9ae86747a36a606655bf8cb414a74d8d507b304f
+  languageName: node
+  linkType: hard
+
 "executable@npm:^4.1.1":
   version: 4.1.1
   resolution: "executable@npm:4.1.1"
@@ -3484,6 +3502,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"get-stream@npm:^6.0.0":
+  version: 6.0.1
+  resolution: "get-stream@npm:6.0.1"
+  checksum: 10c0/49825d57d3fd6964228e6200a58169464b8e8970489b3acdc24906c782fb7f01f9f56f8e6653c4a50713771d6658f7cfe051e5eb8c12e334138c9c918b296341
+  languageName: node
+  linkType: hard
+
 "get-symbol-description@npm:^1.0.2":
   version: 1.0.2
   resolution: "get-symbol-description@npm:1.0.2"
@@ -3793,6 +3818,13 @@ __metadata:
   version: 1.1.1
   resolution: "human-signals@npm:1.1.1"
   checksum: 10c0/18810ed239a7a5e23fb6c32d0fd4be75d7cd337a07ad59b8dbf0794cb0761e6e628349ee04c409e605fe55344716eab5d0a47a62ba2a2d0d367c89a2b4247b1e
+  languageName: node
+  linkType: hard
+
+"human-signals@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "human-signals@npm:2.1.0"
+  checksum: 10c0/695edb3edfcfe9c8b52a76926cd31b36978782062c0ed9b1192b36bebc75c4c87c82e178dfcb0ed0fc27ca59d434198aac0bd0be18f5781ded775604db22304a
   languageName: node
   linkType: hard
 
@@ -4464,7 +4496,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lazy-ass@npm:^1.6.0":
+"lazy-ass@npm:1.6.0, lazy-ass@npm:^1.6.0":
   version: 1.6.0
   resolution: "lazy-ass@npm:1.6.0"
   checksum: 10c0/4af6cb9a333fbc811268c745f9173fba0f99ecb817cc9c0fae5dbf986b797b730ff525504128f6623b91aba32b02124553a34b0d14de3762b637b74d7233f3bd
@@ -5350,7 +5382,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-run-path@npm:^4.0.0":
+"npm-run-path@npm:^4.0.0, npm-run-path@npm:^4.0.1":
   version: 4.0.1
   resolution: "npm-run-path@npm:4.0.1"
   dependencies:
@@ -5495,7 +5527,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"onetime@npm:^5.1.0":
+"onetime@npm:^5.1.0, onetime@npm:^5.1.2":
   version: 5.1.2
   resolution: "onetime@npm:5.1.2"
   dependencies:
@@ -5942,7 +5974,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ps-tree@npm:^1.0.1":
+"ps-tree@npm:1.2.0, ps-tree@npm:^1.0.1":
   version: 1.2.0
   resolution: "ps-tree@npm:1.2.0"
   dependencies:
@@ -6590,7 +6622,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"signal-exit@npm:^3.0.2":
+"signal-exit@npm:^3.0.2, signal-exit@npm:^3.0.3":
   version: 3.0.7
   resolution: "signal-exit@npm:3.0.7"
   checksum: 10c0/25d272fa73e146048565e08f3309d5b942c1979a6f4a58a8c59d5fa299728e9c2fcd1a759ec870863b1fd38653670240cd420dad2ad9330c71f36608a6a1c912
@@ -6766,6 +6798,26 @@ __metadata:
   dependencies:
     minipass: "npm:^7.0.3"
   checksum: 10c0/b091f2ae92474183c7ac5ed3f9811457e1df23df7a7e70c9476eaa9a0c4a0c8fc190fb45acefbf023ca9ee864dd6754237a697dc52a0fb182afe65d8e77443d8
+  languageName: node
+  linkType: hard
+
+"start-server-and-test@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "start-server-and-test@npm:2.0.3"
+  dependencies:
+    arg: "npm:^5.0.2"
+    bluebird: "npm:3.7.2"
+    check-more-types: "npm:2.24.0"
+    debug: "npm:4.3.4"
+    execa: "npm:5.1.1"
+    lazy-ass: "npm:1.6.0"
+    ps-tree: "npm:1.2.0"
+    wait-on: "npm:7.2.0"
+  bin:
+    server-test: src/bin/start.js
+    start-server-and-test: src/bin/start.js
+    start-test: src/bin/start.js
+  checksum: 10c0/e6fedb96bcc1b719bbea9eba9d4d51e5593907599f9aa2b873b924a5f105503f06f1b91ba01f6b58f597caef50bb8749fba54876fe65173fb173ca548bf60437
   languageName: node
   linkType: hard
 
@@ -7602,7 +7654,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wait-on@npm:^7.2.0":
+"wait-on@npm:7.2.0, wait-on@npm:^7.2.0":
   version: 7.2.0
   resolution: "wait-on@npm:7.2.0"
   dependencies:

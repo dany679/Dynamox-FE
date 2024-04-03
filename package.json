@@ -14,8 +14,8 @@
     "testd": "cypress run  && pkill Xvfb  ",
     "stop": "pkill Xvfb",
     "test": "npx cypress run --record --key fd629ced-45be-47c1-85cc-175d3ffb6f41",
-    "test-local": "npx cypress run ",
-    "test-ci": " CI=true run-p  start start-watch test-local && stop ",
+    "test-local": "cypress run ",
+    "test-ci": " CI=true start-server-and-test  start http://localhost:3000 cy:run --record --key fd629ced-45be-47c1-85cc-175d3ffb6f41",
     "cy:spec": "cypress run --spec"
   },
   "dependencies": {
@@ -70,6 +70,7 @@
     "@testing-library/cypress": "^10.0.1",
     "cypress": "^13.6.5",
     "encoding": "^0.1.13",
+    "start-server-and-test": "^2.0.3",
     "wait-on": "^7.2.0"
   }
 }

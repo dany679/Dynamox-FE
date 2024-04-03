@@ -38,7 +38,6 @@ jobs:
           cmd: build # will run `yarn run` command
 
       - name: Test the app
-        continue-on-error: true
         uses: borales/actions-yarn@v4.2.0
         with:
           cmd: test-ci
