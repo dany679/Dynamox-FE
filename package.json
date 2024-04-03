@@ -5,17 +5,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "DISABLE_ESLINT_PLUGIN=true next build ",
-    "start": "next start",
+    "start": "next start ",
     "lint": "next lint",
     "yarn-install": "yarn install --immutable",
     "cy:open": "cypress open",
-    "start-watch": "wait-on http://localhost:3000 this-name-can-be-as-long-as-it-needs-to-be",
+    "start-watch": "wait-on http://localhost:3000",
     "cy:run": "cypress run",
     "testd": "cypress run  && pkill Xvfb  ",
     "stop": "pkill Xvfb",
     "test": "npx cypress run --record --key fd629ced-45be-47c1-85cc-175d3ffb6f41",
     "test-local": "cypress run ",
-    "test-ci": " CI=true start-server-and-test  start http://localhost:3000 cy:run --record --key fd629ced-45be-47c1-85cc-175d3ffb6f41",
+    "test-ci": " CI=true start-server-and-test  start http://localhost:3000  test ",
     "cy:spec": "cypress run --spec"
   },
   "dependencies": {
