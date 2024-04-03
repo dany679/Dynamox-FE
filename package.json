@@ -10,12 +10,10 @@
     "yarn-install": "yarn install --immutable",
     "cy:open": "cypress open",
     "start-watch": "wait-on http://localhost:3000",
-    "cy:run": "cypress run",
-    "testd": "cypress run  && pkill Xvfb  ",
-    "stop": "pkill Xvfb",
+    "cy:run": "npx cypress run",
     "test": "npx cypress run --record --key fd629ced-45be-47c1-85cc-175d3ffb6f41",
-    "test-local": "cypress run ",
     "test-ci": " CI=true start-server-and-test  start http://localhost:3000  test ",
+    "test-local": " CI=true start-server-and-test  start http://localhost:3000   cy:run ",
     "cy:spec": "cypress run --spec"
   },
   "dependencies": {
