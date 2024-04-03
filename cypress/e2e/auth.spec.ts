@@ -47,7 +47,7 @@ describe("login auth", () => {
       cy.location("pathname").should("eq", "/");
     });
   });
-  it.only("should be able to logout", () => {
+  it.("should be able to logout", () => {
     cy.login();
     cy.visit("/");
     cy.getDataTest("logout-id").click();
