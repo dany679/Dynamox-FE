@@ -3,6 +3,8 @@ import "dotenv/config";
 
 const defaultEnv = {
   webTitle: "Company Box",
+  RECORD_KEY: "fd629ced-45be-47c1-85cc-175d3ffb6f41",
+  CYPRESS_RECORD_KEY: "fd629ced-45be-47c1-85cc-175d3ffb6f41",
 };
 export default defineConfig({
   projectId: process.env.projectId,

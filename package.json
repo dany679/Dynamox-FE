@@ -11,8 +11,10 @@
     "cy:open": "cypress open",
     "start-watch": "wait-on http://localhost:3000",
     "cy:run": "cypress run",
-    "test": "cypress run  && pkill Xvfb  ",
-    "test-ci": " CI=true run-p  start start-watch test ",
+    "testd": "cypress run  && pkill Xvfb  ",
+    "stop": "npx kill-port 3000",
+    "test": "npx cypress run --record  ",
+    "test-ci": " CI=true run-p  start start-watch test  ",
     "cy:spec": "cypress run --spec"
   },
   "dependencies": {
