@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: Cypress Actions CI
 
 on: [pull_request]
 
