@@ -2,7 +2,6 @@
   "name": "Company-0",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "yarn@4.1.1",
   "scripts": {
     "dev": "next dev",
     "build": "DISABLE_ESLINT_PLUGIN=true next build ",
@@ -12,7 +11,7 @@
     "cy:open": "cypress open",
     "start-watch": "wait-on http://localhost:3000",
     "cy:run": "cypress run",
-    "test": "cypress run --record --key e193c4f2-a870-4ece-9084-f879df502a8e && pkill Xvfb  ",
+    "test": "cypress run  && pkill Xvfb  ",
     "test-ci": " CI=true run-p  start start-watch test ",
     "cy:spec": "cypress run --spec"
   },
