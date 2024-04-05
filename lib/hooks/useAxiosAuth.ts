@@ -12,9 +12,7 @@ const useAxiosAuth = () => {
     const requestIntercept = axiosAuth.interceptors.request.use(
       (config) => {
         if (!config.headers["Authorization"]) {
-          config.headers[
-            "Authorization"
-          ] = `Bearer ${session?.user?.accessToken}`;
+          config.headers["Authorization"] = `Bearer ${session?.user?.accessToken}`;
         }
         return config;
       },
@@ -26,11 +24,11 @@ const useAxiosAuth = () => {
       async (error) => {
         const prevRequest = error?.config;
         if (error?.response?.status === 401 && !prevRequest?.sent) {
+          console.log(error);
           prevRequest.sent = true;
-          await refreshToken();
-          prevRequest.headers[
-            "Authorization"
-          ] = `Bearer ${session?.user.accessToken}`;
+          const refresh = await refreshToken();
+          console.log(refresh);
+          prevRequest.headers["Authorization"] = `Bearer ${session?.user.accessToken}`;
           return axiosAuth(prevRequest);
         }
         return Promise.reject(error);

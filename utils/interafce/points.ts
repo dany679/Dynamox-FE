@@ -1,8 +1,8 @@
 export interface IPointsList {
   id: string;
   name: string;
-  sensor: string;
-  sensorID: string;
+  state: string;
+  serialID: string;
   machineId: string;
   Machine: Machine;
 }

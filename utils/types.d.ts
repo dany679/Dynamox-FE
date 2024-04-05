@@ -7,8 +7,8 @@ export interface IPagination {
 }
 export interface IPaginationAccessPoint extends IPagination {
   search: string;
-  sensor: string;
-  sensorID: string;
+  state: string;
+  serialID: string;
   next?: boolean;
 }
 export interface IPaginationRequest {

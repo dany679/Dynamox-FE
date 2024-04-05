@@ -1,5 +1,7 @@
 "use client";
 
+import { handleApiError } from "@/lib/api/erros";
+import { deleteMachineService } from "@/lib/api/services/machines";
 import useAxiosAuth from "@/lib/hooks/useAxiosAuth";
 import { cn } from "@/lib/utils";
 import { DEFAULT_LIMIT } from "@/utils/constants";
@@ -16,10 +18,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
-import { useIsFetching, useQueryClient } from "@tanstack/react-query";
+import { useIsFetching, useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
-import toast from "react-hot-toast";
 import Empty from "../empty";
 import ActionDeleteModal from "../modal/delete";
 import PaginationPage from "../pagination-page";
@@ -96,17 +97,16 @@ const TableMachine = () => {
       queryKey: ["machines", { type: "list" }],
     });
   }, [router, page, data, searchParams, queryClient]);
-
-  const handleDeleteMachine = async (id: string) => {
-    try {
-      const req = await axiosAuth.delete(`/machines/${id}`);
+  const { mutate: handleDeleteMachine } = useMutation({
+    mutationFn: async (idMutate: string) => await deleteMachineService(idMutate),
+    onSuccess: async (data) => {
       cleanAfterRemove();
-      toast.success("Maquina detetada com sucesso");
-    } catch (error: any) {
-      if (error?.response?.status === 409) toast.error("Maquina em uso em ponto de acesso");
-      else toast.error("Erro ao detetar o maquina");
-    }
-  };
+      return true;
+    },
+    onError: (error) => {
+      handleApiError("Erro ao deletar ponto de acesso", error);
+    },
+  });
 
   const handleEditUrl = async (idMachine: string) => {
     const newUrl = formUrlQuery({

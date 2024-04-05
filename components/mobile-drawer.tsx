@@ -5,6 +5,8 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ConstructionIcon from "@mui/icons-material/Construction";
 import MenuIcon from "@mui/icons-material/Menu";
 import MonitorIcon from "@mui/icons-material/Monitor";
+import InfoIcon from "@mui/icons-material/Info";
+
 import { Button, Stack, Typography } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -143,6 +145,11 @@ export default function PersistentDrawerLeft() {
               name: "Pontos de acesso",
               icon: <MonitorIcon />,
               href: "/points",
+            },
+            {
+              name: "Sobre",
+              icon:<InfoIcon />,
+              href: "/about",
             },
           ].map((link, index) => (
             <Link

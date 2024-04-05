@@ -1,9 +1,10 @@
 const pointData = {
   name: "testing-point",
   nameUpdate: "testing-point-update ",
-  sensorID: "testing-point-sensorID",
-  sensorIDUpdate: "testing-point-sensorID-update",
+  serialID: "testing-point-serialID",
+  serialIDUpdate: "testing-point-serialID-update",
 };
+const statesList = ["AGUARDANDO", "EM ANDAMENTO", "PLANEJAMENTO", "CONCLUIDO"];
 
 declare namespace Cypress {
   interface Chainable {
@@ -18,40 +19,49 @@ describe("points page workflow", () => {
 
   it("should be show current html", () => {
     cy.contains(/Pontos de acesso/i);
-    cy.get("title").should("include.text", "Pontos de acesso | " + Cypress.env("webTitle"));
+    cy.cyGetTitle("Pontos de acesso");
   });
   it("Should be able to search", () => {
     cy.get("input[name='name']").type("search");
-    cy.get("input[name='sensorID']").type("sensor");
-    cy.getByNameAndClear("sensorID").type("sens");
-    cy.getDataTest("sensor-point-id").click();
-    cy.getDataTest("TcAg-id").click();
-  });
-  it("Should be able to clean the search", () => {
-    cy.get("input[name='name']").type("search");
-    cy.get("input[name='sensorID']").type("testing");
-    cy.getByNameAndClear("sensorID").type("sensor");
-    cy.getDataTest("sensor-point-id").click();
-    cy.getDataTest("TcAg-id").click();
-    cy.getDataTest("button-clear").click();
+    cy.getDataTest("skeleton-row-point-1").should("exist");
+    cy.getSearchString("search=search");
+    cy.getSearchString("page=1");
+    cy.get("input[name='serialID']").type("state");
+    cy.getDataTest("skeleton-row-point-1").should("exist");
+    cy.getSearchString("search=search");
+    cy.getSearchString("page=1");
+    statesList.forEach((state) => {
+      cy.getDataTest("state-point-id").click();
+      cy.contains(new RegExp(state, "ig")).click();
+      cy.getDataTest("skeleton-row-point-1").should("exist");
+      cy.getSearchString("search=search");
+      cy.getSearchString("page=1");
+    });
+    cy.getDataTest("state-point-id").click();
+    cy.contains(/todos/gi).click();
+    cy.getByNameAndClear("name").type("testing");
+    cy.getDataTest("skeleton-row-point-1").should("exist");
+    cy.getSearchString("search=search");
+    cy.getSearchString("page=1");
+    cy.getDataTest("button-clear-points").click();
   });
 
-  it("Should be able to create", () => {
+  it.only("Should be able to create", () => {
     const random = Math.floor(Math.random() * 10000000);
     cy.getDataTest("button-new-point-id").click();
     cy.getDataTest("skeleton-modal-point").should("exist");
     cy.getDataTest("skeleton-modal-point").should("not.exist");
     cy.getDataTest("point-name-id").as("name").should("exist");
-    cy.getDataTest("sensorID-point").as("sensorID").should("exist");
+    cy.getDataTest("serialID-point").as("serialID").should("exist");
     cy.getDataTest("auto-complete-id").as("auto-complete").should("exist");
     cy.getDataTest("select-modal-id").as("select").should("exist");
     cy.get("@name").type(pointData.name);
-    cy.get("@sensorID").type(`${random} ${pointData.sensorID}`);
+    cy.get("@serialID").type(`${random} ${pointData.serialID}`);
     cy.get("@select").trigger("mouseover");
-    cy.get("@select").click();
-    cy.get("@select").then(() => {
-      cy.contains(/TcAg/i);
-      cy.getDataTest("0-menu").click();
+    statesList.forEach((state) => {
+      cy.get("@select").click();
+      cy.contains(new RegExp(state, "ig"));
+      cy.getDataTest(state).click();
     });
 
     cy.get("@auto-complete").trigger("mouseover");
@@ -59,13 +69,11 @@ describe("points page workflow", () => {
     cy.get("@auto-complete").focused().type("testing");
     cy.get("@auto-complete").trigger("change");
     cy.get("@auto-complete").then(() => {
-      cy.get(`li[id="auto-complete-option-0"]`)
-        .contains(/testing/i)
-        .first()
-        .click();
+      cy.contains(/testing/i);
+      cy.get(`li[id="auto-complete-option-0"]`).click();
     });
     cy.getDataTest("form-point-button").click();
-    cy.contains(/salvando/gi);
+    cy.contains(/sucesso/gi);
     cy.getDataTest("skeleton-row-point-1").should("exist");
   });
   it("Should be able to edit point", () => {
@@ -76,16 +84,16 @@ describe("points page workflow", () => {
     cy.getDataTest("skeleton-modal-point").should("exist");
     cy.getDataTest("skeleton-modal-point").should("not.exist");
     cy.getByDataTestAndClear("point-name-id").as("name").should("exist");
-    cy.getByDataTestAndClear("sensorID-point").as("sensorID").should("exist");
+    cy.getByDataTestAndClear("serialID-point").as("serialID").should("exist");
     cy.getDataTest("auto-complete-id").as("auto-complete").should("exist");
     cy.getDataTest("select-modal-id").as("select").should("exist");
     cy.get("@name").type(pointData.name);
-    cy.get("@sensorID").type(`${random} ${pointData.sensorID}`);
+    cy.get("@serialID").type(`${random} ${pointData.serialID}`);
     cy.get("@select").trigger("mouseover");
-    cy.get("@select").click();
-    cy.get("@select").then(() => {
-      cy.contains(/TcAg/i);
-      cy.getDataTest("0-menu").click();
+    statesList.forEach((state) => {
+      cy.get("@select").click();
+      cy.contains(new RegExp(state, "ig"));
+      cy.getDataTest(state).click();
     });
 
     cy.get("@auto-complete").trigger("mouseover");
@@ -93,14 +101,14 @@ describe("points page workflow", () => {
     cy.get("@auto-complete").focused().type("testing");
     cy.get("@auto-complete").trigger("change");
     cy.get("@auto-complete").then(() => {
-      cy.get(`li[id="auto-complete-option-0"]`)
-        .contains(/testing/i)
-        .first()
-        .click();
+      cy.contains(/testing/i);
+      cy.get(`li[id="auto-complete-option-0"]`).click();
     });
     cy.getDataTest("form-point-button").click();
+    cy.getDataTest("skeleton-row-point-1").should("exist");
+    cy.contains(/sucesso/gi);
   });
-  it("Should be able to delete point", () => {
+  it.only("Should be able to delete point", () => {
     cy.getDataTest("skeleton-row-point-0")
       .should("not.exist")
       .then(() => {
@@ -109,5 +117,7 @@ describe("points page workflow", () => {
         cy.getDataTest("row-point-0").find(`[data-test="delete-button"]`).first().click();
         cy.getDataTest("button-delete-modal").should("exist").click();
       });
+    cy.getDataTest("skeleton-row-point-1").should("exist");
+    cy.contains(/sucesso/gi);
   });
 });

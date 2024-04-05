@@ -5,7 +5,7 @@ const Loader = () => (
     <div className="w-10 h-10 relative animate-spin">
       <Image src={"/logo.png"} alt="logo" width={30} height={30} />
     </div>
-    <p className="text-sm text-muted-foreground">Dynamox esta carregando...</p>
+    <p className="text-sm text-muted-foreground">Fix Machines esta carregando...</p>
   </div>
 );
 
