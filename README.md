@@ -10,7 +10,7 @@
 ## 🚀 Tecnologias
 
 - How to reuse layouts
-- Folder structure in Next 13 App Router
+- Next 14
 - Dynamic titles
 - Tailwind design
 - Tailwind animations and effects

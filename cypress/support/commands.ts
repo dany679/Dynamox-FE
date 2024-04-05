@@ -11,11 +11,13 @@
 //
 // cypress/support/commands.ts
 
-Cypress.Commands.add("visitAndWait", (url: string, options?: Partial<Cypress.VisitOptions>) => {
-  // cy.visit(url, options);
-  cy.visit(url);
-  cy.visit(url);
-  cy.on("uncaught:exception", () => false);
+Cypress.Commands.add("cyGetTitle", (pageTitle: string) => {
+  cy.get("title").should("include.text", `${pageTitle} | ` + Cypress.env("webTitle"));
+});
+Cypress.Commands.add("getSearchString", (search: string) => {
+  cy.location().should((loc) => {
+    expect(loc.search).contains(search);
+  });
 });
 
 // cookies
@@ -101,10 +103,10 @@ declare namespace Cypress {
     getDataTest(dataTesSelector: string): Chainable<any>;
     getByDataTestAndClear(dataTesSelector: string): Chainable<any>;
     getByNameAndClear(dataTesSelector: string): Chainable<any>;
-    // clearThenType(dataTesSelector: string): Chainable<any>;
     clickLink(link: string): Chainable<Element>;
     login(email?: string, password?: string, sessionName?: string): Chainable<any>;
-    visitAndWait(url: string, options?: Partial<Cypress.VisitOptions>): Chainable<any>;
+    cyGetTitle(pageTitle: string): Chainable<any>;
+    getSearchString(pageTitle: string): Chainable<any>;
     saveLocalStorage(): Chainable<any>;
     restoreLocalStorage(): Chainable<any>;
   }

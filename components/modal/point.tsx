@@ -1,4 +1,4 @@
-import { formSchemaPoint, sensorTypeSend, sensorsList } from "@/app/(dashboard)/points/constants";
+import { formSchemaPoint, stateTypeSend, statesList } from "@/app/(dashboard)/points/constants";
 import { useAccessPointId } from "@/lib/api/services/points";
 import useAxiosAuth from "@/lib/hooks/useAxiosAuth";
 import { cn } from "@/lib/utils";
@@ -75,8 +75,8 @@ export default function PointModal({ children, update, openModal = false, closeM
     resolver: zodResolver(formSchemaPoint),
     defaultValues: {
       name: "",
-      sensorID: "",
-      sensor: undefined,
+      serialID: "",
+      state: undefined,
       machineId: "",
       id: undefined,
     },
@@ -84,7 +84,7 @@ export default function PointModal({ children, update, openModal = false, closeM
   const { register, reset, setValue } = form;
   const { isSubmitting, errors } = form.formState;
 
-  const { isSuccess, data, isError, isFetching: isLoading } = useAccessPointId(id,openModal);
+  const { isSuccess, data, isError, isFetching: isLoading } = useAccessPointId(id, openModal);
   useEffect(() => {
     if (!isSuccess) return;
     if (!id) {
@@ -97,8 +97,8 @@ export default function PointModal({ children, update, openModal = false, closeM
       setValue("id", data.id);
       setValue("machineId", data.machineId);
       setValue("name", data.name);
-      setValue("sensor", data.sensor);
-      setValue("sensorID", data.sensorID);
+      setValue("state", data.state);
+      setValue("serialID", data.serialID);
       setOptionsD(data.Machine);
       setOptions(data.options);
     }
@@ -201,14 +201,14 @@ export default function PointModal({ children, update, openModal = false, closeM
                 variant="outlined"
               />
               <TextField
-                data-test="sensorID-point"
+                data-test="serialID-point"
                 className="border-1 border-r-emerald-400 col-span-6 "
                 // InputProps={{ disableUnderline: true }}
-                {...register("sensorID")}
+                {...register("serialID")}
                 error={!!errors.name}
                 helperText={!!errors.name?.message}
-                value={form.watch("sensorID") || ""}
-                label="SensorID"
+                value={form.watch("serialID") || ""}
+                label="serial ID"
                 type="text"
                 variant="outlined"
               />
@@ -217,22 +217,22 @@ export default function PointModal({ children, update, openModal = false, closeM
                 className="border-1 border-r-emerald-400 col-span-5 min-w-[80px]"
                 data-test="sensor-point-modal-id"
               >
-                <InputLabel id="sensor-point-label">Sensor</InputLabel>
+                <InputLabel id="sensor-point-label">Estado</InputLabel>
                 <Select
                   labelId="sensor-point-label"
                   id="sensor-point"
                   data-test="select-modal-id"
-                  value={form.watch("sensor") || ""}
-                  error={!!errors.sensor}
+                  value={form.watch("state") || ""}
+                  error={!!errors.state}
                   defaultValue={""}
-                  label="Sensor"
+                  label="Estado"
                   onChange={(event: SelectChangeEvent) => {
-                    const value = event.target.value as sensorTypeSend;
-                    form.setValue("sensor", value);
+                    const value = event.target.value as stateTypeSend;
+                    form.setValue("state", value);
                   }}
                 >
-                  {sensorsList.map((value, indexItem) => (
-                    <MenuItem key={value} value={value} data-test={`${indexItem}-menu`}>
+                  {statesList.map((value, indexItem) => (
+                    <MenuItem key={value} value={value} data-test={`${value}`}>
                       {value}
                     </MenuItem>
                   ))}

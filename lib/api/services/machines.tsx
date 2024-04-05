@@ -28,16 +28,7 @@ export function useMachine<T>(pagination: IPaginationRequest) {
     refetchOnWindowFocus: false,
     // enabled: true,
   });
-  // if (Machine && Machine.isError) {
-  //   console.error(Machine.error);
-  //   toast.error("Erro ao carregar maquinas");
 
-  //   // HandleErrorModal({connectionError:Machine.n});
-  // }
-  // if (Machine && Machine.isPaused) {
-  //   console.error(Machine.error);
-  //   toast.error("offline");
-  // }
   return Machine;
 }
 export function useMachineId<T>(id: string | null) {
@@ -56,7 +47,7 @@ export function useMachineId<T>(id: string | null) {
   return Machine;
 }
 export function useMachineMutation<T>(reset = () => {}) {
-  // const axiosAuth = useAxiosAuth();
+  const axiosAuth = useAxiosAuth();
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (values: IMachine) => {
@@ -87,6 +78,37 @@ export function useMachineMutation<T>(reset = () => {}) {
       console.log(error);
       toast.remove();
       toast.error("Erro ao cadastrar maquina");
+    },
+  });
+}
+export const deleteMachineService = async (id: string) => {
+  const toastId = toast.loading("Atualizando maquina");
+  const req = await axiosAuth.delete(`/machines/${id}`);
+  toast.success("Maquina detetada com sucesso", { id: toastId });
+};
+export function useMachineMutationDelete<T>() {
+  const axiosAuth = useAxiosAuth();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const toastId = toast.loading("Atualizando maquina");
+      const req = await axiosAuth.delete(`/machines/${id}`);
+      toast.success("Maquina detetada com sucesso", { id: toastId });
+
+      return { ...req, toastId };
+    },
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries({
+        queryKey: ["machines", { type: "list" }],
+      });
+      toast.remove(data.toastId);
+      return true;
+    },
+    onError: (error: any) => {
+      toast.remove();
+      console.log(error);
+      if (error?.response?.status === 409) toast.error("Maquina em uso em ponto de acesso");
+      else toast.error("Erro ao detetar o maquina");
     },
   });
 }

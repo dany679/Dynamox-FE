@@ -13,17 +13,17 @@ export function useAccessPoint<T>(pagination: IPaginationAccessPoint) {
       {
         page: pagination.page,
         name: pagination.search,
-        sensor: pagination.sensor,
-        sensorID: pagination.sensorID,
+        state: pagination.state,
+        serialID: pagination.serialID,
         limit: pagination.limit,
         keepPreviousData: true,
         type: "list",
       },
     ],
-    queryFn: async ({}) => {
-      const sensorID = `&sensorID=${pagination.sensorID.trim()}`;
+    queryFn: async () => {
+      const serialID = `&serialID=${pagination.serialID.trim()}`;
       const { data } = await axiosAuth.get(
-        `/access_points?page=${pagination.page}&limit=${pagination.limit}&name=${pagination.search}&sensor=${pagination.sensor}${sensorID}`
+        `/access_points?page=${pagination.page}&limit=${pagination.limit}&name=${pagination.search}&state=${pagination.state}${serialID}`
       );
       return data;
     },

@@ -1,28 +1,21 @@
 const machineData = {
-  name: "testing-machine",
-  type: "testing-machine-type",
-  nameUpdate: "testing-machine-update",
-  typeUpdate: "testing-machine-type-update",
+  name: "testing machine does not charge",
+  type: "testing type mackbook air",
+  nameUpdate: "testing update someone let coca get int the keyboard",
+  typeUpdate: "testing  update mackbook pro m2",
 };
 
-Cypress.Commands.add("sendMachine", (name, type) => {
+async function createMachine(): Promise<void> {
   cy.getDataTest("name-form").find("input").as("machine-name").should("be.enabled");
   cy.getDataTest("type-form").find("input").as("machine-type").should("be.enabled");
-  cy.get("@machine-name").type(name);
-  cy.get("@machine-type").type(type);
+  cy.get("@machine-name").type(machineData.name);
+  cy.get("@machine-type").type(machineData.type);
   cy.get('button[type="submit"]').should("be.enabled").click();
   cy.get('button[type="submit"]').should("be.disabled");
-});
-Cypress.Commands.add("editMachine", (name, type) => {
-  cy.getDataTest("name-form").find("input").as("machine-name").should("be.enabled").clear({ force: true });
-  cy.getDataTest("type-form").find("input").as("machine-type").should("be.enabled").clear({ force: true });
-  cy.get("@machine-name").type(`{selectall}{backspace}`);
-  cy.get("@machine-type").type(`{selectall}{backspace}`);
-  cy.get("@machine-name").type(name);
-  cy.get("@machine-type").type(type);
-  cy.get('button[type="submit"]').should("be.enabled").click();
-  cy.get('button[type="submit"]').should("be.disabled");
-});
+  cy.getDataTest("skeleton-machine");
+  cy.contains(/sucesso/);
+}
+
 declare namespace Cypress {
   interface Chainable {
     sendMachine(name: string, type: string): Chainable<Element>;
@@ -48,21 +41,32 @@ describe("machine page  workflow", () => {
     cy.get("@machine-type").type(machineData.type);
     cy.get('button[type="submit"]').should("be.enabled").click();
     cy.get('button[type="submit"]').should("be.disabled");
+    cy.getDataTest("skeleton-machine").should("exist");
+    cy.contains(/sucesso/);
   });
   it("should possible edit the machine", () => {
-    cy.sendMachine("testing-verify-name", "testing-verify-type");
     cy.getDataTest("skeleton-machine")
       .should("not.exist")
       .then(() => {
         cy.getDataTest("edit-button-1").first().trigger("mouseover");
         cy.contains(/Editar/);
         cy.getDataTest("edit-button-1").click();
-        cy.editMachine("this-new-nome", "this-new-type");
+
+        cy.getDataTest("name-form").find("input").as("machine-name").should("be.enabled").clear({ force: true });
+        cy.getDataTest("type-form").find("input").as("machine-type").should("be.enabled").clear({ force: true });
+        cy.get("@machine-name").type(`{selectall}{backspace}`);
+        cy.get("@machine-type").type(`{selectall}{backspace}`);
+        cy.get("@machine-name").type(machineData.nameUpdate);
+        cy.get("@machine-type").type(machineData.typeUpdate);
+        cy.get('button[type="submit"]').should("be.enabled").click();
+        cy.get('button[type="submit"]').should("be.disabled");
       });
+    cy.getDataTest("skeleton-machine");
+    cy.contains(/sucesso/);
   });
   it("should possible delete the machine", () => {
+    createMachine(); //need exist to delete
     const random = Math.floor(Math.random() * 1000);
-    cy.sendMachine(`${random} name`, `${random} name`);
     cy.getDataTest("skeleton-machine")
       .should("not.exist")
       .then(() => {
@@ -71,5 +75,7 @@ describe("machine page  workflow", () => {
         cy.getDataTest("row-machine-0").find(`[data-test="delete-button"]`).first().click();
         cy.getDataTest("button-delete-modal").should("exist").click();
       });
+    cy.getDataTest("skeleton-machine");
+    cy.contains(/sucesso/);
   });
 });

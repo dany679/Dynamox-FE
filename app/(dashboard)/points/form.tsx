@@ -15,7 +15,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { formSearchSchema, sensorT, sensorsList } from "./constants";
+import { formSearchSchema, stateT, statesList } from "./constants";
 
 const FormSearch = () => {
   const searchParams = useSearchParams();
@@ -32,23 +32,23 @@ const FormSearch = () => {
     count: 1,
     limit: NumParams(searchParams.get("limit"), DEFAULT_LIMIT),
     search: StringParams(searchParams.get("search")),
-    sensor: StringParamsCheck(searchParams.get("sensor"), "", sensorsList),
-    sensorID: StringParams(searchParams.get("sensorID")),
+    state: StringParamsCheck(searchParams.get("state"), "", statesList),
+    serialID: StringParams(searchParams.get("serialID")),
   };
   const form = useForm<z.infer<typeof formSearchSchema>>({
     resolver: zodResolver(formSearchSchema),
     defaultValues: {
       name: pagination.search,
-      sensor: pagination.sensor as sensorT,
-      sensorID: pagination.sensorID,
+      state: pagination.state as stateT,
+      serialID: pagination.serialID,
       id: undefined,
     },
   });
   const { register, control, formState } = form;
   const { isSubmitting, errors } = formState;
   const debouncedValue = useDebounce<string>(form.watch("name") || "", 500);
-  const debouncedSensor = useDebounce<string>(form.watch("sensor"), 500);
-  const debouncedSensorID = useDebounce<string>(form.watch("sensorID") || "", 500);
+  const debouncedstate = useDebounce<string>(form.watch("state"), 500);
+  const debouncedserialID = useDebounce<string>(form.watch("serialID") || "", 500);
 
   const handleEditUrl = useCallback(
     async (key: string, param: string) => {
@@ -66,28 +66,28 @@ const FormSearch = () => {
 
   useEffect(() => {
     if (pagination.search !== form.watch("name")) handleEditUrl("search", debouncedValue);
-    if (pagination.sensor !== form.watch("sensor")) handleEditUrl("sensor", debouncedSensor);
-    if (pagination.sensorID !== form.watch("sensorID")) handleEditUrl("sensorID", debouncedSensorID);
+    if (pagination.state !== form.watch("state")) handleEditUrl("state", debouncedstate);
+    if (pagination.serialID !== form.watch("serialID")) handleEditUrl("serialID", debouncedserialID);
   }, [
     debouncedValue,
-    debouncedSensor,
-    debouncedSensorID,
+    debouncedstate,
+    debouncedserialID,
     form,
     handleEditUrl,
     pagination.search,
-    pagination.sensor,
-    pagination.sensorID,
+    pagination.state,
+    pagination.serialID,
   ]);
 
-  const { data: pointsResponse, isFetching: isLoading } = useAccessPoint(pagination); // aqui
-  const data = pointsResponse?.points || [];
-  const lastPagination = pointsResponse?.pagination;
+  const { data: pointsResponse, isFetching: isLoading } = useAccessPoint(pagination);
+  // const data = pointsResponse?.points || [];
+  // const lastPagination = pointsResponse?.pagination;
 
   return (
     <>
       <PointModal update={false} openModal={openModal} closeModal={() => setOpenModal(false)} />
       <ButtonClose
-        data-test="button-clear"
+        data-test="button-clear-points"
         classNameButton="top-2"
         onClick={() => {
           if (!id) {
@@ -115,29 +115,29 @@ const FormSearch = () => {
         />
         <TextField
           className="border-1 border-r-emerald-400 col-span-3 "
-          {...register("sensorID")}
+          {...register("serialID")}
           error={!!errors.name}
           helperText={!!errors.name?.message}
-          value={form.watch("sensorID") || ""}
-          label="SensorID"
+          value={form.watch("serialID") || ""}
+          label="serialID"
           type="text"
           variant="outlined"
         />
         <FormControl fullWidth className="border-1 border-r-emerald-400 col-span-4 md:col-span-2 min-w-[80px]">
-          <InputLabel id="sensor-point-label">Sensor</InputLabel>
+          <InputLabel id="state-point-label">state</InputLabel>
           <Select
-            labelId="sensor-point-label"
-            id="sensor-point"
-            data-test="sensor-point-id"
-            value={form.watch("sensor") || ""}
+            labelId="state-point-label"
+            id="state-point"
+            data-test="state-point-id"
+            value={form.watch("state") || ""}
             defaultValue={""}
-            label="Sensor"
+            label="state"
             onChange={(event: SelectChangeEvent) => {
-              const value = event.target.value as sensorT;
-              form.setValue("sensor", value);
+              const value = event.target.value as stateT;
+              form.setValue("state", value);
             }}
           >
-            {sensorsList.map((value, index) => (
+            {statesList.map((value, index) => (
               <MenuItem key={value} value={value} data-test={`${value}-id`}>
                 {value}
               </MenuItem>

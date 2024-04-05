@@ -9,14 +9,14 @@ describe("login auth", () => {
     cy.clickLink("Registre-se");
 
     console.log(Cypress.env("webTitle"), "AKO");
-    cy.get("title").should("include.text", "registrar | " + Cypress.env("webTitle"));
+    cy.cyGetTitle("registrar");
   });
   it("should redirect unauthenticated user to login page", () => {
     cy.url().should("eq", Cypress.config().baseUrl + "/login");
     cy.get("h1").should("contain.text", "Login");
     cy.visit("/");
     cy.get("h1").should("contain.text", "Login");
-    cy.get("title").should("include.text", "login | " + Cypress.env("webTitle"));
+    cy.cyGetTitle("login");
   });
   it("should show erros if the fields is black or incorrect", () => {
     cy.get('input[name = "email"]').type("user check now"); // Use email id

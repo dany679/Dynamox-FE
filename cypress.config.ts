@@ -1,8 +1,9 @@
 import { defineConfig } from "cypress";
 import "dotenv/config";
+import { config } from "./utils/config";
 
 const defaultEnv = {
-  webTitle: "Company Box",
+  webTitle: config.webTitle,
   RECORD_KEY: "fd629ced-45be-47c1-85cc-175d3ffb6f41",
   CYPRESS_RECORD_KEY: "fd629ced-45be-47c1-85cc-175d3ffb6f41",
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import { sensorsList } from "@/app/(dashboard)/points/constants";
+import { statesList } from "@/app/(dashboard)/points/constants";
 import { handleApiError } from "@/lib/api/erros";
 import { deleteAccessPoint } from "@/lib/api/services/points";
 import useAxiosAuth from "@/lib/hooks/useAxiosAuth";
@@ -24,7 +24,6 @@ import { styled } from "@mui/material/styles";
 import { useIsFetching, useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
-import toast from "react-hot-toast";
 import Empty from "../empty";
 import ActionDeleteModal from "../modal/delete";
 import PointModal from "../modal/point";
@@ -62,8 +61,8 @@ const TablePoints = () => {
     count: 1,
     limit: NumParams(searchParams.get("limit"), DEFAULT_LIMIT),
     search: StringParams(searchParams.get("search")),
-    sensor: StringParamsCheck(searchParams.get("sensor"), "", sensorsList),
-    sensorID: StringParams(searchParams.get("sensorID")),
+    state: StringParamsCheck(searchParams.get("state"), "", statesList),
+    serialID: StringParams(searchParams.get("serialID")),
   };
 
   const axiosAuth = useAxiosAuth();
@@ -72,8 +71,8 @@ const TablePoints = () => {
     "access_points",
     {
       name: pagination.search,
-      sensor: pagination.sensor,
-      sensorID: pagination.sensorID,
+      state: pagination.state,
+      serialID: pagination.serialID,
       page: pagination.page,
       limit: pagination.limit,
       keepPreviousData: true,
@@ -106,7 +105,6 @@ const TablePoints = () => {
     mutationFn: async (idMutate: string) => await deleteAccessPoint(idMutate),
     onSuccess: async (data) => {
       cleanAfterRemove();
-      toast.remove(data.toastId);
       return true;
     },
     onError: (error) => {
@@ -144,8 +142,8 @@ const TablePoints = () => {
               <TableRow>
                 <StyledTableCell>Index</StyledTableCell>
                 <StyledTableCell align="left">Nome</StyledTableCell>
-                <StyledTableCell align="left">Sensor</StyledTableCell>
-                <StyledTableCell align="left">SensorID</StyledTableCell>
+                <StyledTableCell align="left">Estado</StyledTableCell>
+                <StyledTableCell align="left">Serial ID</StyledTableCell>
                 <StyledTableCell align="left">Maquina</StyledTableCell>
                 <StyledTableCell align="left">Tipo</StyledTableCell>
                 <StyledTableCell align="right">Ações</StyledTableCell>
@@ -165,8 +163,8 @@ const TablePoints = () => {
                       {index + 1}
                     </StyledTableCell>
                     <StyledTableCell align="left">{row.name}</StyledTableCell>
-                    <StyledTableCell align="left">{row.sensor}</StyledTableCell>
-                    <StyledTableCell align="left">{row.sensorID}</StyledTableCell>
+                    <StyledTableCell align="left">{row.state}</StyledTableCell>
+                    <StyledTableCell align="left">{row.serialID}</StyledTableCell>
                     <StyledTableCell align="left">{row.Machine.name}</StyledTableCell>
                     <StyledTableCell align="left">{row.Machine.type}</StyledTableCell>
                     <StyledTableCell align="right">
