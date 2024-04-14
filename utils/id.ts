@@ -1,11 +1,9 @@
 export function isUUID(uuid: string | null) {
-  if (!uuid) return false;
+  if (!uuid || typeof uuid !== "string") return false;
   let s = "" + uuid;
 
-  s = s.match(
-    "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
-  );
-  if (s === null) {
+  const match = s.match("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
+  if (!match) {
     return false;
   }
   return true;
