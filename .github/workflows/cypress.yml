@@ -1,4 +1,4 @@
-name: Cypress Actions CI
+name: Cypress Actions CI CD
 
 on: [pull_request]
 
@@ -8,6 +8,9 @@ jobs:
     environment: production
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
@@ -25,5 +28,5 @@ jobs:
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           # NEXT_BASE_HTTP: ${{ secrets.NEXT_BASE_HTTP }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           NEXT_PUBLIC_HTTP: ${{ secrets.NEXT_PUBLIC_HTTP }}
