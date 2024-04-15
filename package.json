@@ -7,7 +7,7 @@
     "build": "DISABLE_ESLINT_PLUGIN=true next build ",
     "start": "next start ",
     "lint": "next lint",
-    "yarn-install": "yarn install --immutable",
+    "npm-install": "npm install --immutable",
     "cy:open": "cypress open",
     "start-watch": "wait-on http://localhost:3000",
     "cy:run": "npx cypress run",

@@ -8,16 +8,13 @@ jobs:
     environment: production
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          install-command: yarn --immutable
+          install-command: npm ci
           record: true
-          build: yarn build
-          start: yarn start
+          build: npm run build
+          start: npm start
           wait-on: "http://localhost:3000"
           # parallel: true
         env:
